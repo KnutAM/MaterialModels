@@ -1,0 +1,239 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8833,        231]
+NotebookOptionsPosition[      8034,        211]
+NotebookOutlinePosition[      8376,        226]
+CellTagsIndexPosition[      8333,        223]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", "Parameters", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"name", " ", "=", " ", "\"\<RF\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"nback", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"signconv", "=", 
+     RowBox[{"-", "1"}]}], ";"}], 
+   RowBox[{"(*", 
+    RowBox[{
+    "Sign", " ", "convention", " ", "in", " ", "formulation", " ", "for", " ",
+      "dissipative", " ", "stresses"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"FreeEnergy", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"EvolutionLaw", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"eps", "=", 
+     RowBox[{"10", "^", 
+      RowBox[{"(", 
+       RowBox[{"-", "12"}], ")"}]}]}], ";"}], " ", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Small", " ", "number", " ", "for", " ", "numerical", " ", "checks"}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"nvar", "=", 
+     RowBox[{"10", "+", 
+      RowBox[{"9", "*", "nback"}]}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"nmp", "=", 
+     RowBox[{"6", "+", 
+      RowBox[{"3", "*", "nback"}]}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"subroutinename", "=", 
+     RowBox[{"StringJoin", "[", 
+      RowBox[{"name", ",", " ", 
+       RowBox[{"ToString", "[", "nback", "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"filename", "=", 
+     RowBox[{"StringJoin", "[", 
+      RowBox[{"name", ",", 
+       RowBox[{"ToString", "[", "nback", "]"}], ",", "\"\<_FE\>\"", ",", " ", 
+       RowBox[{"ToString", "[", "FreeEnergy", "]"}], ",", " ", "\"\<_EV\>\"", 
+       ",", " ", 
+       RowBox[{"ToString", "[", "EvolutionLaw", "]"}], ",", " ", 
+       "\"\<_SC\>\"", ",", " ", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"signconv", "\[Equal]", 
+          RowBox[{"-", "1"}]}], ",", "\"\<1\>\"", ",", "\"\<2\>\""}], "]"}]}],
+       " ", "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.698470925931296*^9, 3.6984709685752954`*^9}, {
+   3.6984889705006795`*^9, 3.698488976288943*^9}, {3.6988336307940407`*^9, 
+   3.6988336309540567`*^9}, 3.698833926935652*^9, {3.6988340370126586`*^9, 
+   3.6988340544844055`*^9}, {3.698835681506421*^9, 3.6988357045501785`*^9}, 
+   3.6988359505668364`*^9, {3.698836113240488*^9, 3.698836130903165*^9}, {
+   3.6988362343143797`*^9, 3.6988363978275137`*^9}, {3.6988364334836493`*^9, 
+   3.6988364542023478`*^9}, 3.6988364869294233`*^9, {3.6988365180254297`*^9, 
+   3.698836583759638*^9}, {3.698838933588378*^9, 3.698839002892972*^9}, {
+   3.6988415896613817`*^9, 3.698841618006216*^9}, {3.698848379110832*^9, 
+   3.698848380500971*^9}, {3.6988494915180616`*^9, 3.69884951280519*^9}, {
+   3.6989112145912848`*^9, 3.69891121622227*^9}, {3.698921932547014*^9, 
+   3.6989220178568983`*^9}, {3.6989220757143373`*^9, 
+   3.6989222581093597`*^9}, {3.700198002868891*^9, 3.700198006530799*^9}, 
+   3.700198149358433*^9, 3.757407189529959*^9, 3.7574073640375957`*^9},
+ CellLabel->"In[39]:=",ExpressionUUID->"2f5e435f-433b-4df9-9216-e18501d131ef"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{
+   "$Path", ",", 
+    "\"\<C:\\\\Box \
+Sync\\\\PhD\\\\CODING\\\\Mathematica_libraries\\\\mathematicatensors\>\""}], 
+   "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"<<", "AceGen`"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"SMSInitialize", "[", 
+   RowBox[{"filename", ",", 
+    RowBox[{"\"\<Language\>\"", "\[Rule]", "\"\<Matlab\>\""}]}], "]"}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"SMSModule", "[", 
+   RowBox[{"subroutinename", ",", 
+    RowBox[{"Real", "[", 
+     RowBox[{
+      RowBox[{"x$$", "[", "nvar", "]"}], ",", 
+      RowBox[{"props$$", "[", "nmp", "]"}], ",", 
+      RowBox[{"statev$$", "[", "nvar", "]"}], ",", 
+      RowBox[{"Fnew$$", "[", "9", "]"}], ",", 
+      RowBox[{"R$$", "[", "nvar", "]"}]}], "]"}], ",", 
+    RowBox[{"\"\<Output\>\"", "\[Rule]", 
+     RowBox[{"{", "R$$", "}"}]}], ",", 
+    RowBox[{"\"\<Input\>\"", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"x$$", ",", "props$$", ",", "statev$$", ",", "Fnew$$"}], 
+      "}"}]}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{
+  3.757407119000945*^9, {3.757407195481203*^9, 3.7574071962407117`*^9}, {
+   3.7574125539027944`*^9, 3.7574125556071033`*^9}, {3.757653172372013*^9, 
+   3.7576531730917625`*^9}},
+ CellLabel->"In[49]:=",ExpressionUUID->"5c8ddddb-286c-44dc-8495-c8c0950b1143"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"rs", "=", 
+   RowBox[{"NotebookOpen", "[", 
+    RowBox[{"StringJoin", "[", 
+     RowBox[{
+      RowBox[{"Directory", "[", "]"}], ",", "\"\<\\\\ResidualSetup.nb\>\""}], 
+     "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NotebookEvaluate", "[", "rs", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7574100215550795`*^9, 3.7574100346655645`*^9}, {
+  3.757653156487903*^9, 3.757653161228219*^9}, {3.7576537424316854`*^9, 
+  3.757653782702961*^9}, {3.757660276656582*^9, 
+  3.757660276826778*^9}},ExpressionUUID->"6367f633-152e-4dcf-b27b-\
+730cf4665720"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Export", " ", "variables"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SMSExport", "[", 
+     RowBox[{"R", ",", "R$$"}], "]"}], ";"}], "\n", 
+   RowBox[{"SMSWrite", "[", "]"}]}]}]], "Input",
+ CellLabel->"In[56]:=",ExpressionUUID->"b5cbfe8a-9f1c-463c-bf5a-6161a49c1b24"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     StyleBox["\<\"File:\"\>",
+      StripOnInput->False,
+      LineColor->RGBColor[0, 0, 1],
+      FrontFaceColor->RGBColor[0, 0, 1],
+      BackFaceColor->RGBColor[0, 0, 1],
+      GraphicsColor->RGBColor[0, 0, 1],
+      FontWeight->Bold,
+      FontColor->RGBColor[0, 0, 1]], "\<\"RF1_FE1_EV1_SC1.m\"\>", 
+     StyleBox["\<\"Size:\"\>",
+      StripOnInput->False,
+      LineColor->RGBColor[0, 0, 1],
+      FrontFaceColor->RGBColor[0, 0, 1],
+      BackFaceColor->RGBColor[0, 0, 1],
+      GraphicsColor->RGBColor[0, 0, 1],
+      FontWeight->Bold,
+      FontColor->RGBColor[0, 0, 1]], "6868"},
+    {"\<\"Methods\"\>", "\<\"No.Formulae\"\>", "\<\"No.Leafs\"\>", 
+     "\[SpanFromLeft]"},
+    {
+     StyleBox["\<\"RF1\"\>",
+      StripOnInput->False,
+      LineColor->RGBColor[0, 0, 1],
+      FrontFaceColor->RGBColor[0, 0, 1],
+      BackFaceColor->RGBColor[0, 0, 1],
+      GraphicsColor->RGBColor[0, 0, 1],
+      FontWeight->Bold,
+      FontColor->RGBColor[0, 0, 1]], "119", "2628", "\[SpanFromLeft]"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Rows" -> {1, 2}},
+   GridBoxFrame->{"ColumnsIndexed" -> {{{1, -1}, {1, -1}} -> True}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Print",
+ CellChangeTimes->{{3.6989221443573046`*^9, 3.698922283535262*^9}, 
+   3.700198019726671*^9, 3.7001981684514313`*^9, 3.7574072037257333`*^9, 
+   3.7574073739515266`*^9, 3.7574100462076144`*^9, {3.757653172858078*^9, 
+   3.757653180668419*^9}, 3.7576537906307983`*^9},
+ CellLabel->
+  "During evaluation of \
+In[56]:=",ExpressionUUID->"7d24d30a-d216-45b4-8bb9-74acd7fd424d"],
+
+Cell[BoxData["2.8759999999999994`"], "Output",
+ CellChangeTimes->{{3.6989221443873043`*^9, 3.6989222835482616`*^9}, 
+   3.700198019753671*^9, 3.700198168479431*^9, 3.757407203791729*^9, 
+   3.7574073739555244`*^9, 3.7574100462166157`*^9, {3.7576531728883944`*^9, 
+   3.757653180668419*^9}, 3.757653790662567*^9},
+ CellLabel->"Out[57]=",ExpressionUUID->"71b003a9-9d8f-4ca3-82d2-a6831df04359"]
+}, Open  ]]
+},
+WindowSize->{1006, 1060},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 3115, 71, 238, "Input",ExpressionUUID->"2f5e435f-433b-4df9-9216-e18501d131ef"],
+Cell[3676, 93, 1319, 35, 105, "Input",ExpressionUUID->"5c8ddddb-286c-44dc-8495-c8c0950b1143"],
+Cell[4998, 130, 608, 14, 48, "Input",ExpressionUUID->"6367f633-152e-4dcf-b27b-730cf4665720"],
+Cell[CellGroupData[{
+Cell[5631, 148, 348, 9, 67, "Input",ExpressionUUID->"b5cbfe8a-9f1c-463c-bf5a-6161a49c1b24"],
+Cell[5982, 159, 1642, 42, 59, "Print",ExpressionUUID->"7d24d30a-d216-45b4-8bb9-74acd7fd424d"],
+Cell[7627, 203, 391, 5, 32, "Output",ExpressionUUID->"71b003a9-9d8f-4ca3-82d2-a6831df04359"]
+}, Open  ]]
+}
+]
+*)
+

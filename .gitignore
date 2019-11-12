@@ -1,0 +1,4 @@
+#Neglect all build folders
+*build*
+#Neglect the top level compiled folders
+compiled*

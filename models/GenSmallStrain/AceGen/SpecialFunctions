@@ -1,0 +1,39 @@
+(* EVOLUTION LAWS *)
+
+Switch[model
+
+ , 1,(*Chaboche*)
+ nukfun[delta_, invYk_, mexp_, nu_, b_] := nu - (3/2)*dev9[b]*invYk;
+
+ , 2,(*Delobelle*)
+ nukfun[delta_, invYk_, mexp_, nu_, b_] := 
+  nu - (delta*(3/2)*dev9[b]*invYk + (1 - delta)*invYk*dco[b, nu]*nu );
+
+ , 3,(*Ohno Wang type with Delobelle*)
+ nukfun[delta_, invYk_, mexp_, nu_, b_] := nu - SMSIf[vonM[b] < eps, 0*nu, 
+ (invYk^(mexp + 1)) * macaulay[dco[nu, b]] * ((vonM[b])^mexp) * ( delta*(3/2)*dev9[b]/vonM[b] + (1 - delta)*nu)];
+
+ , _,(*DefaultOption*)
+ nukfun[delta_, invYk_, mexp_, nu_, b_]:=0;
+ Style["Invalid evolution law", 20, Bold, Background -> Red]
+
+ ]
+ 
+(* OVERSTRESS_FUNCTIONS *)
+
+Switch[overstress
+
+ , 1,(*Norton*)
+ etafun[phi_, y0_, kap_, nexp_] := (macaulay[phi]/y0)^nexp;
+
+ , 2,(*cowsym*)
+ etafun[phi_, y0_, kap_, nexp_] := (macaulay[phi]/(y0+kap))^nexp;
+ 
+ , 3,(*Delobelle*)
+ etafun[phi_, y0_, kap_, nexp_] := Sinh[(macaulay[phi]/y0)^nexp];
+
+ , _,(*DefaultOption*)
+ etafun[phi_, y0_, nexp_] := 0;
+ Style["Invalid overstress function", 20, Bold, Background -> Red]
+
+ ]

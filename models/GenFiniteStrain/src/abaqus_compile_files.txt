@@ -1,0 +1,2 @@
+gfs_bc,"../../umat_utils/SolveMatrixEquation.f90","../../umat_utils/smsutility.f90","gfs_bc.f90","../../umat_utils/tensors_module.f90","GFS_module.f90","GeneralFiniteStrain.for"
+gfs_ob,"../../umat_utils/SolveMatrixEquation.f90","../../umat_utils/smsutility.f90","gfs_ob.f90","../../umat_utils/tensors_module.f90","GFS_module.f90","GeneralFiniteStrain.for"

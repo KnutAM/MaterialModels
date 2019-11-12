@@ -1,0 +1,47 @@
+<< TensorsToolboxMathematica
+<< SpecialFunctions
+
+(*READ INPUT*)
+    (*Material paramters*)
+mpar ⊢ SMSReal[Table[props$$[i], {i, nmp}]];
+{Gmod, Kmod, Y0, Hiso, invYiso, delta} ⊨ Table[mpar[[i]], {i, 6}];
+
+Hk    ⊨ Table[mpar[[i]], {i, 7, 6 + 3*nback, 3}];
+invYk ⊨ Table[mpar[[i]], {i, 8, 6 + 3*nback, 3}];
+mexp  ⊨ Table[mpar[[i]], {i, 9, 6 + 3*nback, 3}];
+
+    (*Old state variables*)
+svO     ⊢ SMSReal[Table[statev$$[i], {i, nvar}]];
+lambdaO ⊨ svO[[1]];
+FpO     ⊨ Table[svO[[1 + i]], {i, 9}];
+FkO     ⊨ Table[Table[svO[[10 + i + 9*(j - 1)]], {i, 9}], {j, nback}];
+
+    (*Current state variables*)
+X       ⊢ SMSReal[Table[x$$[i], {i, nvar}]];
+lambda  ⊨ X[[1]];
+Fp      ⊨ Table[X[[i + 1]], {i, 9}];
+Fk      ⊨ Table[Table[X[[10 + i + 9*(j - 1)]], {i, 9}], {j, nback}];
+    
+    (*Deformation gradient*)
+F9      ⊢ SMSReal[Table[Fnew$$[i], {i, 9}]];
+Fpinv   ⊨ inv9[Fp];
+Fe      ⊨ v9dv9[F9, Fpinv];
+Ce      ⊨ v9dv9[trans9[Fe], Fe];
+
+(*CALCULATE STRESSES*)
+Mic     ⊨  Micfun[Gmod, Kmod, Ce];
+Mkic    ⊨  Table[Mkicfun[Hk[[i]], Fk[[i]]], {i, nback}]
+Mredic  ⊨  Mic - Sum[Mkic[[i]], {i, nback}]
+kappa   ⊨  SMSIf[SMSAbs[invYiso] < eps, 
+   Hiso*lambda, (1 - Exp[-lambda*Hiso*invYiso])/invYiso];
+   
+(*CALCULATE RESIDUAL*)
+Meff    ⊨ vonM[Mredic];
+nu      ⊨ (3/2)*dev9[trans9[Mredic]]/(Y0+kappa);
+
+Rphi    ⊨ {Meff - (Y0 + kappa)};
+Rpl     ⊨ I2 - v9dv9[FpO,inv9[Fp]] - (lambda-lambdaO)*nu;
+Rk      ⊨ Table[I2 - v9dv9[FkO[[i]],inv9[Fk[[i]]]] - (lambda-lambdaO)*nukfun[delta, invYk[[i]], mexp[[i]], nu, Mkic[[i]]], {i,nback}]
+R       ⊨ Join[Rphi, Rpl];
+Do[R    ⊨ Join[R, Rk[[i]]], {i, nback}    ]
+

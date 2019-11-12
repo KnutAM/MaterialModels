@@ -1,0 +1,129 @@
+%My custom commands
+\usepackage{bm}		
+\usepackage{accents}		
+\usepackage{subdepth}	%Ensure subscripts height is unaffected by superscripts
+\usepackage{fixltx2e} %Alternatively: etoolbox with robustify
+\MakeRobust{\underaccent}
+
+%% Special fonts etc to ensure consistency througout document
+\newcommand{\unit}[1]{\,\mathrm{#1}}	%Use this for unit notation to ensure consistency (an possibility to change later)
+\newcommand{\e}[1]{\times 10^{#1}}
+
+%% MATH OPERATORS ====================================================
+%Differential operators
+\newcommand{\dif} {\mathrm{d}}
+\newcommand{\diff}[2][]{\frac{\dif #1}{\dif #2}}
+\newcommand{\tdif}[2][]{\frac{\dif ^2 #1}{(\dif #2)^2}}
+\newcommand{\ndiff}[3][]{\frac{\dif ^{#3} #1}{(\dif #2)^{#3}}}
+\newcommand{\pdif} {\partial}
+\newcommand{\pdiff}[2][]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ptdif}[2][]{\frac{\partial ^2 #1}{(\partial #2)^2}}
+\newcommand{\pttdif}[3][]{\frac{\partial ^2 #1}{\partial #2 \partial #3}}
+
+%Subscripts and superscripts
+\newcommand{\inds}[1]{_{#1}}	%Use for index notation
+\newcommand{\subscr}[1]{_{\mathrm{#1}}}
+\newcommand{\supscr}[1]{^{\mathrm{#1}}}
+\newcommand{\subsup}[2]{\subscr{#1}\supscr{#2}}
+
+\newcommand\leftidx[3]{%Super/subsripts in front and after
+  {\vphantom{#2}}#1#2#3%
+}
+\newcommand\leftidxrm[3]{%Super/subsripts in front and after in roman
+  {\vphantom{#2}}\mathrm{#1}#2\mathrm{#3}%
+}
+
+
+%Numerical time
+% General time (use by default, and change n to k using renewcommand if desired)
+\newcommand{\old}[1]{\leftidxrm{^{n-1}}{#1}{}}
+\newcommand{\cur}[1]{\leftidxrm{^{n}}{#1}{}}
+\newcommand{\new}[1]{\leftidxrm{^{n+1}}{#1}{}}
+%If n is to be used in special case
+\newcommand{\oldn}[1]{\leftidxrm{^{n-1}}{#1}{}}
+\newcommand{\curn}[1]{\leftidxrm{^{n}}{#1}{}}
+\newcommand{\newn}[1]{\leftidxrm{^{n+1}}{#1}{}}
+%If k is to be used in special case
+\newcommand{\oldk}[1]{\leftidxrm{^{k-1}}{#1}{}}	
+\newcommand{\curk}[1]{\leftidxrm{^{k}}{#1}{}}
+\newcommand{\newk}[1]{\leftidxrm{^{k+1}}{#1}{}}
+
+% Special symbols often used with dots
+\newcommand{\lambdadot}{\dot{\lambda}}
+
+
+%% NOTATIONS =========================================================
+\newcommand{\voigt}[1]{\underline{\bm{#1}}}	%Voigt notation
+\newcommand{\set}[1]{\mathbb{#1}}		%Set
+
+% Standard tensors
+\newcommand{\ta}[1]{\bm{#1}}			%1st order tensor
+\newcommand{\ts}[1]{\bm{#1}}			%2nd order tensor
+\newcommand{\td}[1]{\mathcal{#1}}		%3rd order tensor
+\newcommand{\tf}[1]{\mathsf{#1}}		%4th order tensor
+
+% Inverse tensors
+\newcommand{\tsi}[1]{\ts{#1}^{-1}}		%Inverse 2nd 
+\newcommand{\tfi}[1]{\tf{#1}^{-1}}		%Inverse 4th 
+
+% Transpose tensors
+\newcommand{\tst}[1]{\ts{#1}^{\mathrm{t}}}		%Transpose 2nd 
+\newcommand{\tft}[1]{\tf{#1}^{\mathrm{T}}}		%Transpose 4th 
+
+% Transpose inverse tensors
+\newcommand{\tsti}[1]{\ts{#1}^{-\mathrm{t}}}		%Transpose inverse 2nd
+\newcommand{\tfti}[1]{\tf{#1}^{-\mathrm{T}}}		%Transpose inverse 4th
+
+\newcommand{\tad}[1]{\dot{\ta{#1}}}	%Dot 1st
+\newcommand{\tsd}[1]{\dot{\ts{#1}}}	%Dot 2nd
+\newcommand{\tdd}[1]{\dot{\td{#1}}}	%Dot 3rd
+\newcommand{\tfd}[1]{\dot{\tf{#1}}}	%Dot 4th
+
+%% TENSOR DECORATIONS  ===============================================
+% Index notation of decorated tensors
+\newcommand{\indnot}[2]{\left(#1\right)\inds{#2}}
+
+% Superscripts
+\newcommand{\eff}{^{\mathrm{eff}}}	% Effective value
+\newcommand{\dev}{^{\mathrm{dev}}} 	% Deviatoric part
+\newcommand{\vol}{^{\mathrm{vol}}}	% Volumetric part
+\newcommand{\sym}{^{\mathrm{sym}}} 	% Symmetric part
+\newcommand{\skw}{^{\mathrm{skw}}} 	% Skew part
+\newcommand{\trans}{^{\mathrm{t}}}	% Transpose small t
+\newcommand{\Trans}{^{\mathrm{T}}}	% Transpose captial T
+\newcommand{\itrans}{^{-\mathrm{t}}}	% Inverse transpose t
+\newcommand{\iTrans}{^{-\mathrm{T}}}	% Inverse transpose T
+\newcommand{\inv}{^{-1}}			% Inverse
+
+% Subscripts
+\newcommand{\el}{_{\mathrm{e}}} 		% Elastic
+\newcommand{\pl}{_{\mathrm{p}}} 		% Plastic
+\newcommand{\mean}{_{\mathrm{m}}} 	% Mean value
+\newcommand{\red}{_{\mathrm{red}}} 	% Reduced value
+\newcommand{\iso}{_{\mathrm{iso}}}	% Isotropic
+\newcommand{\kin}{_{\mathrm{kin}}}	% Kinematic
+\newcommand{\kini}{_{\mathrm{kin}, i}}	% Kinematic, i
+\newcommand{\trial}{_{\mathrm{tr}}} 	% Trial value
+
+% For typing out second order base indicies conveniently
+\newcommand{\be}[1]{\ta{e}_{#1}}
+\newcommand{\bee}[2]{\ta{e}_{#1}\otimes\ta{e}_{#2}}
+\newcommand{\beee}[3]{\ta{e}_{#1}\otimes\ta{e}_{#2}\otimes\ta{e}_{#3}}
+\newcommand{\beeee}[4]{\ta{e}_{#1}\otimes\ta{e}_{#2}\otimes\ta{e}_{#3}\otimes\ta{e}_{#4}}
+
+%% OPERATIONS ========================================================
+%% Scalar operations
+\newcommand{\macaulay}[1]{\left\langle #1 \right\rangle}
+
+%% Vector and tensor operations
+\newcommand{\abs}[1]{\vert #1 \vert}				%Absolute value
+\newcommand{\norm}[1]{\left\vert\left\vert #1 \right\vert\right\vert}	%Norm ||x||
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\lotimes}{\mathrm{Use\,opl\,instead}}
+\newcommand{\uotimes}{\mathrm{Use\,opu\,instead}}
+
+\newcommand{\op}{\otimes}	%Open product ij x kl
+\newcommand{\opl}{\mkern2.5mu\underline{\mkern-2.5mu\otimes\mkern-2.5mu}\mkern2.5mu}	%Lower open product il x jk
+\newcommand{\opu}{\mkern2.5mu\overline{\mkern-2.5mu\otimes\mkern-2.5mu}\mkern2.5mu}	%Upper open product ik x jl
+\newcommand{\dco}{:}		%Double contraction
+

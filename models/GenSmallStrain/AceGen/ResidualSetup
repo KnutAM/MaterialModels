@@ -1,0 +1,46 @@
+<<TensorsToolboxMathematica
+<<SpecialFunctions
+
+(*READ INPUT*)
+(*Material parameters*)
+mpar\[RightTee]SMSReal[Table[props$$[i],{i,nmp}]];
+If[rdep, 
+{Gmod,Kmod,Y0,Hiso,invYiso,tstar,nexp,delta}\[DoubleRightTee]Table[mpar[[i]],{i,8}],
+{Gmod,Kmod,Y0,Hiso,invYiso,delta}\[DoubleRightTee]Table[mpar[[i]],{i,6}]];
+
+Hk\[DoubleRightTee]Table[mpar[[i]],{i,7+nmpadd,6+nmpadd+3*nback,3}];
+invYk\[DoubleRightTee]Table[mpar[[i]],{i,8+nmpadd,6+nmpadd+3*nback,3}];
+mexp\[DoubleRightTee]Table[mpar[[i]],{i,9+nmpadd,6+nmpadd+3*nback,3}];
+
+(*Old variables*)
+xold\[RightTee]SMSReal[Table[xold$$[i],{i,nvar}]];
+sold\[DoubleRightTee]v6ABAS2v9[Table[xold[[i]],{i,6}]];
+kold\[DoubleRightTee]xold[[7]];
+bold\[DoubleRightTee]Table[v6ABAS2v9[Table[xold[[8+nvaadd+i+6*(j-1)]],{i,6}]],{j,nback}];
+(*Current variables*)
+xnew\[RightTee]SMSReal[Table[x$$[i],{i,nvar}]];
+snew\[DoubleRightTee]v6ABAS2v9[Table[xnew[[i]],{i,6}]];
+knew\[DoubleRightTee]xnew[[7]];
+bnew\[DoubleRightTee]Table[v6ABAS2v9[Table[xnew[[8+nvaadd+i+6*(j-1)]],{i,6}]],{j,nback}];
+
+(*Trial stress*)
+strial\[RightTee]v6ABAS2v9[SMSReal[Table[strial$$[i],{i,6}]]];
+
+(*Time increment*)
+dtime\[RightTee]SMSReal[dt$$]
+
+(*CALCULATE STRESSES*)
+sred\[DoubleRightTee]dev9[snew-Sum[bnew[[i]],{i,nback}]];
+seff\[DoubleRightTee]vonM[sred];
+nu\[DoubleRightTee](3/2)*sred/(SMSIf[seff<eps, eps, seff]);
+phi\[DoubleRightTee]seff-(Y0+knew);
+lnew\[DoubleRightTee]If[rdep, etafun[phi, Y0, knew, nexp]*dtime/tstar, xnew[[8]]];
+
+(*CALCULATE RESIDUAL*)
+Rsig\[DoubleRightTee]snew-dev9[strial]+2*Gmod*lnew*nu;
+Riso\[DoubleRightTee]{knew-kold-Hiso*lnew*(1-knew*invYiso)};
+Rphi\[DoubleRightTee]{seff-(Y0+knew)};
+R\[DoubleRightTee]Join[v92v6ABAS[Rsig],Riso];
+If[!rdep,R\[DoubleRightTee]Join[R,{phi}]]; (*Yield function only part of residual for rate independent*)
+Rkin\[DoubleRightTee]Table[bnew[[i]]-dev9[bold[[i]]]-lnew*(2/3)*Hk[[i]]*nukfun[delta,invYk[[i]],mexp[[i]],nu,bnew[[i]]],{i,nback}];
+Do[R\[DoubleRightTee]Join[R,v92v6ABAS[Rkin[[i]]]],{i,nback}];

@@ -1,0 +1,116 @@
+\documentclass[10pt,a4paper]{article}
+\input{Settings.tex}
+\title{Standard small strain models}
+\author{Knut Andreas Meyer}
+\begin{document}
+\maketitle
+
+The implemented small strain models are suitable for modeling of cyclic plasticity. All models follow a very similar framework that is described first. The models differ in the kinematic hardening laws as well as in their viscoplastic formulation (some are rate independent while others use specific overstress functions). 
+\section{General formulation}
+The free energy for the general model can be written as
+\begin{align}
+\Psi &= \Psi\el(\ts{\epsilon}\el + \sum_{i=1}^{N\subscr{back}} \Psi\kini\left(\ts{b}\inds{i}\right) + \Psi\iso(k) \\
+\Psi\el &= G\ts{\epsilon}\el\dev:\ts{\epsilon}\el\dev + 
+		   \frac{1}{2} K \left(\ts{\epsilon}\el:\ts{I}\right)^2	\\
+\Psi\kini &= \frac{1}{3} H\kini\ts{b}\inds{i}:\ts{b}\inds{i} \\
+\Psi\iso &= \frac{1}{2} H\iso k^2
+\end{align}
+where $G$ and $K$ are the elastic shear and bulk modulii respectively. We further introduce the kinematic hardening strain-like variables $\ts{b}\inds{i}$ and the kinematic hardening modulii $H\kini$ as well as the isotropic hardening variable $k$ along with the isotropic hardening modulus $H\iso$. The conjugated stresses ($\ts{\sigma}$, $\ts{\beta}\inds{i}$ and $\kappa$) are then obtained as
+\begin{align}
+\ts{\sigma} &= \pdiff[\Psi]{\ts{\epsilon}\el} = 2G\ts{\epsilon}\el\dev + K\left(\ts{\epsilon}\el:\ts{I}\right)\ts{I} \\
+\ts{\beta}\inds{i} &= -\pdiff[\Psi]{\ts{b}\inds{i}} = - \frac{2}{3}H\kini\ts{b}\inds{i}, \quad \ts{\beta} = \sum \ts{\beta}\inds{i} \\
+\kappa &= -\pdiff[\Psi]{k} = - H\iso k
+\end{align}
+The yield criterion $\Phi$ is assumed to have the following form:
+\begin{align}
+\Phi &= f(\ts{\sigma}\red\dev) - (\sigma\subscr{y0} + \kappa)\\
+\ts{\sigma}\red &= \ts{\sigma} - \ts{\beta}
+\end{align}
+Where $f$ is an effective stress measure and $\sigma\subscr{y0}$ is the initial yield limit. $\ts{\beta}$ is the so-called back-stress giving kinematic hardening and $\kappa$ describes the isotropic expansion of the yield surface. The use of the deviatoric stresses in the effective stress measure imply that all models assume incompressible plasticity. All the models will specifically use the von Mises yield criterion:
+\begin{align}
+f\subscr{vM}(\ts{x}) &= \sqrt{\frac{3}{2}}\sqrt{\left(\tst{x}\right)\dev:\ts{x}\dev}\\
+\pdiff[\Phi]{\ts{\sigma}} &= \ts{\nu} = \frac{3\ts{\sigma}\red\dev}{2\sigma\supscr{vM}\red}
+\end{align}
+
+The model differences are introduced in the different evolution laws back-stress conjugated strain variables $\ts{b}\inds{i}$, whilst the evolution laws for the plastic strain and isotropic hardening stress will be the same for all models:
+\begin{align}
+\tsd{\epsilon}\pl &= \lambda \pdiff[\Phi]{\ts{\sigma}} \\
+\tsd{b}\inds{i} &= \lambda g(\ts{\sigma}, \ts{\beta}, \ts{\beta}\inds{i}) \\
+\dot{k} &= \lambda\left(1-\frac{\kappa}{\kappa_\infty}\right)
+\end{align}
+
+\section{Difference between rate dependent and rate independent models}
+The model types differ in the definition of the plastic multiplier $\lambda$.
+
+\noindent\emph{Rate dependent plasticity}
+
+The plastic multiplier $\lambda$ is defined as
+\begin{align}
+\lambda = \frac{1}{t_*}\eta(\Phi)
+\end{align}
+where $\eta$ is the overstress function. $t_*$ is another material parameter which is typically interpreted as the relaxation time. Two important requirements are put on the overstress function: 
+\begin{enumerate}
+\item	$\eta{\Phi}=0$ for $\Phi\leq 0$
+\item	$\pdiff[\eta]{\Phi} > 0$ for $\Phi > 0$
+\end{enumerate}
+
+\noindent\emph{Rate independent plasticity}
+
+The plastic multiplier can be viewed as a Lagrange multiplier, fulfilling the KKT-conditions:
+\begin{align}
+\Phi\leq 0, \quad \lambda\geq 0, \quad \Phi\lambda=0
+\end{align}
+These imply that whenever we have plasticity occurring $\lambda > 0$ and $\Phi = 0$. It may be noted that letting $t_*\rightarrow\infty$ for the rate dependent model leads to the condition that $\Phi=0$ in plastic loading. However, for numerical reasons it is then better to solve $\Phi=0$ as a separate equation. 
+
+\section{Integration of evolution laws}
+The Backward Euler (BE) rule is used for the time integration, leading to the residual $\bm{R}=\left[\bm{R}_\sigma,\,R_\kappa,\,\bm{R}_{\beta,i}\right]=\bm{0}$ to be solved:
+\begin{align}
+\bm{R}_\sigma &= \ts{\sigma}\dev - \sigma\dev\trial + 2\Delta t \lambda G \ts{\nu} \\
+R_\kappa &= \kappa - \old{\kappa} - \Delta t \lambda H\iso\left(1 - \frac{\kappa}{\kappa_\infty} \right) \\
+\bm{R}_{\beta,i} &= \ts{\beta}\inds{i}\dev - \old{\ts{\beta}\inds{i}\dev} - \Delta t \lambda \frac{2H\kini}{3} g\left(\ts{\sigma}, \ts{\beta}, \ts{\beta}\inds{i}\right)
+\end{align}
+with the unknowns $\bm{X} = \left[\bm{\sigma}\dev,\,\kappa,\,\bm{\beta}\inds{i}\right]$. 
+
+In the case of rate independent plasticity, we also add $R_\Phi=\Phi$ to the residual $\bm{R}$ and $\lambda$ to the unknowns $\bm{X}$. 
+
+\section{Specific models}
+The model denoted \nolinkurl{chaboche} have kinematic hardening of the form
+\begin{align}
+g\subscr{chaboche}\left(\ts{\sigma}, \ts{\beta}, \ts{\beta}\inds{i}\right) &= \ts{\nu} - \frac{3\ts{\beta}\dev\inds{i}}{2\beta_{\infty,i}}
+\end{align}
+and is rate independent.
+
+
+The model denoted \nolinkurl{delobelle} have kinematic hardening of the form
+\begin{align}
+g\subscr{delobelle}\left(\ts{\sigma}, \ts{\beta}, \ts{\beta}\inds{i}\right) &= \ts{\nu} -\left( \delta \frac{3\ts{\beta}\dev\inds{i}}{2\beta_{\infty,i}} + (1-\delta)\left(\frac{\ts{\nu}:\ts{\beta}\inds{i}}{\beta_{\infty,i}}\right)\ts{\nu}\right)
+\end{align}
+and is also rate independent. 
+
+
+The rate independent model denoted \nolinkurl{ohnowang} is a combination of the original model 2 by Ohno and Wang, and the model by Delobelle above. The original Ohno Wang model is obtained by setting $\delta=1$:
+\begin{align}
+g\subscr{ohnowang}\left(\ts{\sigma}, \ts{\beta}, \ts{\beta}\inds{i}\right) &= \ts{\nu} - \frac{\macaulay{\ts{\nu}:\ts{\beta}\inds{i}}}{\beta_{\infty,i}}\left(\frac{f(\ts{\beta}\inds{i})}{\beta_{\infty,i}} \right)^{m\inds{i}}\left(\delta \frac{3\ts{\beta}\dev\inds{i}}{2f(\ts{\beta}\inds{i})} + (1-\delta)\ts{\nu}\right)
+\end{align}
+
+All of the above models can also be used as a rate dependent version with different overstress functions $\eta$:
+\begin{align*}
+\eta\subscr{norton}(\Phi) &= \macaulay{\frac{\Phi}{\sigma\subscr{y0}}}^n \\
+\eta\subscr{cowsym}(\Phi) &= \macaulay{\frac{\Phi}{\sigma\subscr{y0}+\kappa}}^n \\
+\eta\subscr{delobelle}(\Phi) &= \sinh\left(\macaulay{\frac{\Phi}{\sigma\subscr{y0}}}^n\right)
+\end{align*}
+
+The \nolinkurl{cowsym} ("Cowper-Symonds overstress power law") model is used by Abaqus (with $t_*=1/D$). Each model is named with the corresponding rate independent model name followed by an underscore before the name of the overstress function. E.g. \nolinkurl{chaboche_norton} and  \nolinkurl{delobelle_cowsym}.
+
+\section{Equivalence with Abaqus parameters}
+The \nolinkurl{chaboche} model is the same as the "combined hardening" model in Abaqus standard. However, Abaqus' parameters ($Q_\infty$, $b$, $C_i$ and $\gamma_i$) are defined somewhat different than those above ($\kappa_\infty$, $H\iso$, $\beta_{\infty,i}$, $H\kini$):
+\begin{align}
+Q_\infty &= \kappa			\\
+b &= H\iso/\kappa_\infty 	\\
+C_i &= H\kini 				\\
+\gamma_i &= H\kini/\beta_{\infty,i}
+\end{align}
+
+The \nolinkurl{cowsym} overstress function is the same as the power law in Abaqus. The $D$ parameter used by Abaqus is the inverse of the $t_*$ parameter used above: $D=1/t_*$. The rate dependent plasticity is only available for isotropic hardening in Abaqus, and the supplied material has been verified against this setup for uniaxial tension. 
+
+\end{document}

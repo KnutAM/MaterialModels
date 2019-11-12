@@ -1,0 +1,41 @@
+
+(*General utility functions*)
+ck[Fk_]:=v9dv9[inv9[trans9[Fk]], inv9[Fk]];
+Ck[Fk_]:=v9dv9[trans9[Fk], Fk];
+
+(* STRESS CALCULATIONS *)
+
+Switch[FreeEnergy
+ , 1,(*Larijani2013*)
+ Micfun[Gmod_, Kmod_, Ce_]  := Gmod*((det9[Ce])^(-1/3))*dev9[Ce] + Kmod*(det9[Ce] - SMSSqrt[det9[Ce]])*I2;
+ Mkicfun[Hk_, Fk_]          := (-signconv)*Hk*((det9[ck[Fk]])^(-1/3))*(dev9[ck[Fk]]);
+ 
+ , 2,(*Vladimirov2007*)
+ Micfun[Gmod_, Kmod_, Ce_]  := Gmod*(Ce - I2) + (Kmod - (2/3)*Gmod)*(det9[Ce] - 1)*I2/2;
+ Mkicfun[Hk_, Fk_]          := signconv*dev9[Hk*(v9dv9[Fk, trans9[Fk]] - I2)];
+ 
+  , 3,(*Special combo*)
+ Micfun[Gmod_, Kmod_, Ce_]  := Gmod*((det9[Ce])^(-1/3))*dev9[Ce] + Kmod*(det9[Ce] - SMSSqrt[det9[Ce]])*I2;
+ Mkicfun[Hk_, Fk_]          := (signconv)*Hk*((det9[Ck[Fk]])^(-1/3))*((v9dv9[Fk, trans9[Fk]] - (1/3)*trace9[Ck[Fk]]*I2));
+ 
+ , _,(*DefaultOption*)
+ Micfun[Gmod_, Kmod_, Ce_]  := 0;
+ Mkicfun[Hk_, Fk_]          := 0;
+ Style["Invalid free energy", 20, Bold, Background -> Red]
+ ]
+
+
+(* EVOLUTION LAWS *)
+Switch[EvolutionLaw
+ , 1,(*AF and BC combo*)
+nukfun[delta_, invYk_, mexp_, nu_, Mk_] := 
+  signconv*nu - signconv*( (3/2)*delta*dev9[trans9[Mk]]*invYk + (1 - delta)*invYk*dco[Mk, nu]*nu );
+ 
+ , 2,(*Ohno Wang type with AF/BC comb*)
+ nukfun[delta_, invYk_, mexp_, nu_, Mk_] := signconv*nu - signconv*SMSIf[vonM[Mk] < eps, 0*nu, 
+ (invYk^(mexp + 1)) * macaulay[dco[nu, Mk]] * ((vonM[Mk])^mexp) * ( delta*(3/2)*dev9[trans9[Mk]]/vonM[Mk] + (1 - delta)*nu )  ];
+
+ , _,(*DefaultOption*)
+ nukfun[delta_, invYk_, mexp_, nu_, Mk_]:=0;
+ Style["Invalid evolution law", 20, Bold, Background -> Red]
+ ]
