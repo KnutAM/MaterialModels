@@ -1,0 +1,27 @@
+AceGenModule Qin2018_BC2
+nstatv:                 36
+ElasticType:            NeoHookean
+KinHardType:            BC_D07mod
+
+Material parameters (21):
+G (Shear modulus)
+K (Bulk modulus)
+R0 (Initial yield limit)
+DeR1 (Delta epsilon R1)
+R1sat (Isotropic saturation)
+DeR2 (Delta epsilon R2)
+R2sat (Isotropic saturation)
+kr
+k0
+qr
+Der (Delta epsilon r)
+delta (amount of  AF vs BC)
+Hkin1
+Binf1
+Hkin2
+Binf2
+DeP
+alpha
+q0
+n
+De0

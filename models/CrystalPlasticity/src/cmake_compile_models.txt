@@ -1,0 +1,5 @@
+Hutchinson1976exp_Lindfeldt_AF_bcc_uniform_mod:-D model=Hutchinson1976exp_Lindfeldt_AF_bcc -D orientation=uniform_mod
+Hutchinson1976exp_Lindfeldt_AF_bcc_random_mod:-D model=Hutchinson1976exp_Lindfeldt_AF_bcc -D orientation=random_mod
+Hutchinson1976exp_Lindfeldt_AF_bcc_rand512mod:-D model=Hutchinson1976exp_Lindfeldt_AF_bcc -D orientation=rand512mod
+Hutchinson1976exp_Lindfeldt_AF_bcc_rand16384mod:-D model=Hutchinson1976exp_Lindfeldt_AF_bcc -D orientation=rand16384mod
+Hutchinson1976exp_Lindfeldt_AF_iso_bcc_uniform_mod:-D model=Hutchinson1976exp_Lindfeldt_AF_iso_bcc -D orientation=uniform_mod

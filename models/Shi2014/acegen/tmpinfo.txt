@@ -1,0 +1,8 @@
+AceGenModule Shi2014exp_BC2
+nstatv:                 70
+ElasticType:            NeoHookean
+IsoHardType:            Standard
+KinHardType:            BC_D07mod
+DistHardType:           Shi2014
+
+Material parameters (NumDistHardParam + NumElasticParam + NumIsoHardParam + NumKinHardParam):

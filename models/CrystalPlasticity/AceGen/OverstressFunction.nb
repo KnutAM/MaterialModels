@@ -1,0 +1,277 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10533,        269]
+NotebookOptionsPosition[     10234,        256]
+NotebookOutlinePosition[     10579,        271]
+CellTagsIndexPosition[     10536,        268]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"OVERSTRESS", " ", "FUNCTION"}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+     "Various", " ", "overstress", " ", "functions", " ", "can", " ", "be", 
+      " ", "setup", " ", "based", " ", "on", " ", "the", " ", "variable", " ", 
+      RowBox[{"OverstressType", ".", " ", "The"}], " ", "following", " ", 
+      "quantities", " ", "are", " ", "defined"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"-", " ", 
+      RowBox[{"OverstressParam", ":", " ", 
+       RowBox[{
+       "Array", " ", "of", " ", "strings", " ", "describing", " ", "the", " ",
+         "overstress", " ", "function", " ", "parameters"}]}]}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"-", " ", 
+     RowBox[{"NumOverstressParam", ":", " ", 
+      RowBox[{
+      "Number", " ", "of", " ", "overstress", " ", "function", " ", 
+       "parameters"}]}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"-", " ", 
+      RowBox[{"overstress", "[", 
+       RowBox[{"phi_", ",", "p_"}], "]"}]}], ":", " ", 
+     RowBox[{
+     "Given", " ", "the", " ", "effective", " ", "stress", " ", "and", " ", 
+      "the", " ", "yield", " ", "size"}]}], ",", " ", 
+    RowBox[{"calculates", " ", "the", " ", "overstress", " ", "value"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"-", " ", 
+      RowBox[{"yield", "[", 
+       RowBox[{"seff_", ",", "ysize_"}], "]"}]}], ":", " ", 
+     RowBox[{
+     "Given", " ", "the", " ", "effective", " ", "stress", " ", "and", " ", 
+      "the", " ", "yield", " ", "size"}]}], ",", " ", 
+    RowBox[{"calculates", " ", "the", " ", "yield", " ", "potential"}]}], 
+   "\[IndentingNewLine]", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"yield", "[", 
+      RowBox[{"seff_", ",", "ysize_"}], "]"}], ":=", 
+     RowBox[{"seff", "-", "ysize"}]}], ";"}], 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Default", " ", "yield", " ", "potential"}], ",", " ", 
+     RowBox[{"modify", " ", "below", " ", "if", " ", "needed"}]}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Switch", "[", 
+     RowBox[{
+     "OverstressType", ",", "\[IndentingNewLine]", "\"\<Norton\>\"", ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"OverstressParam", "=", 
+        RowBox[{"{", 
+         RowBox[{"\"\<os_exponent\>\"", ",", "\"\<os_normalization\>\""}], 
+         "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"NumOverstressParam", "=", 
+        RowBox[{"Length", "[", "OverstressParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"overstress", "[", 
+         RowBox[{"seff_", ",", "ysize_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"macaulay", "[", 
+            RowBox[{"seff", "-", "ysize"}], "]"}], "/", 
+           RowBox[{"p", "[", 
+            RowBox[{"[", "2", "]"}], "]"}]}], ")"}], "^", 
+         RowBox[{"p", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}]}]}], ",", "\[IndentingNewLine]", 
+      "\"\<Delobelle\>\"", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"OverstressParam", "=", 
+        RowBox[{"{", 
+         RowBox[{"\"\<os_exponent\>\"", ",", "\"\<os_normalization\>\""}], 
+         "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"NumOverstressParam", "=", 
+        RowBox[{"Length", "[", "OverstressParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"overstress", "[", 
+         RowBox[{"seff_", ",", "ysize_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{"Sinh", "[", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"macaulay", "[", 
+             RowBox[{"seff", "-", "ysize"}], "]"}], "/", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], ")"}], "^", 
+          RowBox[{"p", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], "]"}]}]}], ",", 
+      "\[IndentingNewLine]", "\"\<Cowsym\>\"", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"OverstressParam", "=", 
+        RowBox[{"{", 
+         RowBox[{"\"\<os_exponent\>\"", ",", "\"\<os_tstar\>\""}], "}"}]}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"NumOverstressParam", "=", 
+        RowBox[{"Length", "[", "OverstressParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"overstress", "[", 
+         RowBox[{"seff_", ",", "ysize_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "/", 
+           RowBox[{"p", "[", 
+            RowBox[{"[", "2", "]"}], "]"}]}], ")"}], 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"macaulay", "[", 
+             RowBox[{"seff", "-", "ysize"}], "]"}], "/", "ysize"}], ")"}], 
+          "^", 
+          RowBox[{"p", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]}]}]}], ",", 
+      "\[IndentingNewLine]", "\"\<Cruzado2015\>\"", ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"OverstressParam", "=", 
+        RowBox[{"{", 
+         RowBox[{"\"\<os_exponent\>\"", ",", "\"\<gamma_ref\>\""}], "}"}]}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"NumOverstressParam", "=", 
+        RowBox[{"Length", "[", "OverstressParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"overstress", "[", 
+         RowBox[{"seff_", ",", "ysize_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{
+         RowBox[{"p", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"seff", "/", "ysize"}], ")"}], "^", 
+          RowBox[{"p", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"yield", "[", 
+         RowBox[{"seff_", ",", "ysize_"}], "]"}], ":=", 
+        RowBox[{"seff", "/", "ysize"}]}]}], ",", "\[IndentingNewLine]", 
+      "\"\<Lindfeldt2012\>\"", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"OverstressParam", "=", 
+        RowBox[{"{", 
+         RowBox[{"\"\<os_exponent\>\"", ",", "\"\<os_tstar\>\""}], "}"}]}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"NumOverstressParam", "=", 
+        RowBox[{"Length", "[", "OverstressParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"overstress", "[", 
+         RowBox[{"seff_", ",", "ysize_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "/", 
+           RowBox[{"p", "[", 
+            RowBox[{"[", "2", "]"}], "]"}]}], ")"}], 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"macaulay", "[", 
+                 RowBox[{"seff", "-", "ysize"}], "]"}], "/", "ysize"}], ")"}],
+               " ", "+", " ", "1"}], ")"}], "^", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], "-", "1"}], ")"}]}]}]}], ",", 
+      "\[IndentingNewLine]", "\"\<Lindfeldt2012Norton\>\"", ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"OverstressParam", "=", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<os_exponent\>\"", ",", "\"\<os_normalization\>\"", ",", " ", 
+          "\"\<os_yieldadd\>\""}], "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"NumOverstressParam", "=", 
+        RowBox[{"Length", "[", "OverstressParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"overstress", "[", 
+         RowBox[{"seff_", ",", "ysize_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"macaulay", "[", 
+               RowBox[{"seff", "-", "ysize"}], "]"}], " ", "+", " ", 
+              RowBox[{"p", "[", 
+               RowBox[{"[", "3", "]"}], "]"}]}], ")"}], "/", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], ")"}], "^", 
+          RowBox[{"p", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], "-", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"p", "[", 
+             RowBox[{"[", "3", "]"}], "]"}], "/", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], ")"}], "^", 
+          RowBox[{"p", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]}]}]}], ",", "\[IndentingNewLine]",
+       "_", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"OverstressParam", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"NumOverstressParam", "=", "0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"overstress", "[", 
+         RowBox[{"phi_", ",", "p_"}], "]"}], ":=", "0"}]}]}], "]"}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.758348294378935*^9, 3.7583483181797657`*^9}, {
+  3.758350492748207*^9, 3.758350515653878*^9}, {3.7583505774548206`*^9, 
+  3.758350645840639*^9}, {3.7583508707436357`*^9, 3.758351029681001*^9}, {
+  3.758371363901964*^9, 3.7583713655989614`*^9}, {3.7583733402183895`*^9, 
+  3.7583736392974668`*^9}, {3.758373739987872*^9, 3.7583737744295316`*^9}, {
+  3.7583806029722705`*^9, 3.7583806037240973`*^9}, {3.7585977009320984`*^9, 
+  3.758597864334623*^9}, {3.7594106872474613`*^9, 3.7594107060878925`*^9}, {
+  3.7594107921377926`*^9, 3.7594108461709914`*^9}, {3.759411134971671*^9, 
+  3.759411136184164*^9}, {3.762054493771077*^9, 3.762054500356171*^9}, {
+  3.762055093134573*^9, 3.762055121464196*^9}, {3.762055265142152*^9, 
+  3.7620553754849176`*^9}},ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-\
+9feb42e240c5"]
+},
+WindowSize->{775, 872},
+WindowMargins->{{-1856, Automatic}, {Automatic, 81}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 9672, 234, 827, "Input",ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-9feb42e240c5"]
+}
+]
+*)
+

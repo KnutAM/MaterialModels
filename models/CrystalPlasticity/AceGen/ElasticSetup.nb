@@ -1,0 +1,173 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5826,        165]
+NotebookOptionsPosition[      5247,        149]
+NotebookOutlinePosition[      5592,        164]
+CellTagsIndexPosition[      5549,        161]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Elastic", " ", "setup"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Load", " ", "in", " ", "the", " ", "input", " ", "variables"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"RunSubModules", "[", 
+    RowBox[{"{", "\"\<GetFunctions\>\"", "}"}], "]"}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.758598435457329*^9, 3.7585984387313724`*^9}, 
+   3.758598475646621*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"5cb0f991-c18d-43a0-85af-2c1cdff26bec"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Calculate", " ", "the", " ", "trial", " ", "stress"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"FeTr", "\[DoubleRightTee]", 
+     RowBox[{"v9dv9", "[", 
+      RowBox[{"F9", ",", 
+       RowBox[{"inv9", "[", "FpOld", "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"CeTr", "\[DoubleRightTee]", 
+     RowBox[{"v9dv9", "[", 
+      RowBox[{
+       RowBox[{"trans9", "[", "FeTr", "]"}], ",", "FeTr"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SeTr", "\[DoubleRightTee]", 
+     RowBox[{"elastic", "[", 
+      RowBox[{"CeTr", ",", "ElasticParams"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"MeTr", "\[DoubleRightTee]", 
+     RowBox[{"v9dv9", "[", 
+      RowBox[{"CeTr", ",", "SeTr"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"TauTr", "\[DoubleRightTee]", 
+     RowBox[{"v9dv9", "[", 
+      RowBox[{"FeTr", ",", 
+       RowBox[{"v9dv9", "[", 
+        RowBox[{"SeTr", ",", 
+         RowBox[{"trans9", "[", "FeTr", "]"}]}], "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"sigma", "\[DoubleRightTee]", 
+     RowBox[{"v92v6ABAS", "[", 
+      RowBox[{"TauTr", "/", 
+       RowBox[{"det9", "[", "F9", "]"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"TauAlphaTr", "\[DoubleRightTee]", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"dco", "[", 
+        RowBox[{"MeTr", ",", 
+         RowBox[{"m2v", "[", 
+          RowBox[{"op", "[", 
+           RowBox[{
+            RowBox[{"s", "[", 
+             RowBox[{"[", "i", "]"}], "]"}], ",", 
+            RowBox[{"m", "[", 
+             RowBox[{"[", "i", "]"}], "]"}]}], "]"}], "]"}]}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", 
+         RowBox[{"Length", "[", "m", "]"}]}], "}"}]}], "]"}]}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.7585984811405945`*^9, 3.758598486526595*^9}, {
+   3.7585988351884375`*^9, 3.758598926237442*^9}, {3.758599003087102*^9, 
+   3.758599009613539*^9}, {3.7586116457010703`*^9, 3.7586116714611883`*^9}, 
+   3.758612049853958*^9},
+ CellLabel->"In[2]:=",ExpressionUUID->"3767c3a3-45f1-47b2-a4b3-47df45bae028"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Calculate", " ", "the", " ", "reduced", " ", "stresses", " ", "and", " ", 
+    "yield"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"TauRedTr", "\[DoubleRightTee]", 
+     RowBox[{"TauAlphaTr", "-", "BetaOld"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"yielding", "\[DoubleRightTee]", 
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"yield", "[", 
+        RowBox[{
+         RowBox[{"SMSAbs", "[", 
+          RowBox[{"TauRedTr", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "]"}], ",", 
+         RowBox[{
+          RowBox[{"KappaOld", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "+", 
+          RowBox[{"IsoHardParams", "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}]}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "NumSlipSystems"}], "}"}]}], "]"}]}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.7585990326297607`*^9, 3.7585992072445354`*^9}, {
+   3.758603875437003*^9, 3.758603936580619*^9}, {3.758604422491947*^9, 
+   3.7586044594620733`*^9}, {3.75860453133449*^9, 3.7586045332775345`*^9}, 
+   3.7587212968493514`*^9},ExpressionUUID->"041d0ef9-9f43-4d4b-9a13-\
+30bbc4ce14d7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Calculate", " ", "the", " ", "stiffness", " ", "ddsdde"}], "*)"}],
+   "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"dtaudF", "\[DoubleRightTee]", 
+     RowBox[{"SMSD", "[", 
+      RowBox[{"TauTr", ",", "F9"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ddsdde", "\[DoubleRightTee]", 
+     RowBox[{"dtaudFtoddsdde", "[", 
+      RowBox[{"dtaudF", ",", "F9"}], "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.7585992189135494`*^9, 3.7585992937502327`*^9}, {
+  3.7586038072053385`*^9, 3.758603827077174*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"da9d34d5-5c0f-4082-854c-a3e07793107b"]
+},
+WindowSize->{775, 872},
+WindowMargins->{{-1749, Automatic}, {15, Automatic}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 530, 12, 67, "Input",ExpressionUUID->"5cb0f991-c18d-43a0-85af-2c1cdff26bec"],
+Cell[1091, 34, 2253, 62, 162, "Input",ExpressionUUID->"3767c3a3-45f1-47b2-a4b3-47df45bae028"],
+Cell[3347, 98, 1217, 31, 86, "Input",ExpressionUUID->"041d0ef9-9f43-4d4b-9a13-30bbc4ce14d7"],
+Cell[4567, 131, 676, 16, 67, "Input",ExpressionUUID->"da9d34d5-5c0f-4082-854c-a3e07793107b"]
+}
+]
+*)
+

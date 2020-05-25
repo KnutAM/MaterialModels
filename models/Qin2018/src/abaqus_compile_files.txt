@@ -1,0 +1,2 @@
+Qin2018_AF2,"../../umat_utils/SolveMatrixEquation.f90","../../umat_utils/smsutility.f90","Qin2018_AF2.f90","umat_module.f90","umat.f90"
+Qin2018_BC2,"../../umat_utils/SolveMatrixEquation.f90","../../umat_utils/smsutility.f90","Qin2018_BC2.f90","umat_module.f90","umat.f90"

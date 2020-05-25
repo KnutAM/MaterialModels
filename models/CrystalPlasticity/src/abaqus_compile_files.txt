@@ -1,0 +1,1 @@
+Hutchinson1976exp_Lindfeldt_AF_bcc,"../../umat_utils/SolveMatrixEquation.f90","../../umat_utils/smsutility.f90","../../umat_utils/Tensors_module.f90","Hutchinson1976exp_Lindfeldt_AF_bcc.f90","umat_module.f90","umat.f90","uniform_mod.f90","taylor_model.f90"

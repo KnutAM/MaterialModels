@@ -1,0 +1,487 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     19595,        479]
+NotebookOptionsPosition[     19293,        466]
+NotebookOutlinePosition[     19639,        481]
+CellTagsIndexPosition[     19596,        478]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ISOTROPIC", " ", "HARDENING", " ", "LAW"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+     "Various", " ", "isotropic", " ", "hardening", " ", "laws", " ", "can", 
+      " ", "be", " ", "setup", " ", "based", " ", "on", " ", "the", " ", 
+      "variable", " ", 
+      RowBox[{"IsoHardType", ".", " ", "The"}], " ", "following", " ", 
+      "quantities", " ", "are", " ", "defined"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"-", " ", 
+      RowBox[{"IsoHardParam", ":", " ", 
+       RowBox[{
+       "Array", " ", "of", " ", "strings", " ", "describing", " ", "the", " ",
+         "isotropic", " ", "hardening", " ", "parameters"}]}]}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"-", " ", 
+     RowBox[{"NumIsoHardParam", ":", " ", 
+      RowBox[{
+      "Number", " ", "of", " ", "isotropic", " ", "hardening", " ", 
+       "parameters"}]}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"-", " ", 
+      RowBox[{"isohard", "[", 
+       RowBox[{
+       "KappaOld_", ",", " ", "DeltaGamma_", ",", "GammaOld_", ",", "p_"}], 
+       "]"}]}], ":", " ", 
+     RowBox[{
+     "Given", " ", "the", " ", "old", " ", "kappa", " ", "for", " ", "each", 
+      " ", "slip", " ", "system"}]}], ",", " ", 
+    RowBox[{
+    "the", " ", "increment", " ", "of", " ", "gamma", " ", "for", " ", "each",
+      " ", "slip", " ", "system"}], ",", " ", 
+    RowBox[{
+    "the", " ", "old", " ", "gamma", " ", "for", " ", "each", " ", "slip", 
+     " ", "system", " ", "and", " ", "the", " ", "IsoHardParams"}], ",", " ", 
+    RowBox[{
+    "calculates", " ", "the", " ", "new", " ", "kappa", " ", "for", " ", 
+     "all", " ", "slip", " ", "systems", "\[IndentingNewLine]", 
+     RowBox[{"NOTE", ":", " ", 
+      RowBox[{
+      "First", " ", "isotropic", " ", "parameter", " ", "is", " ", "always", 
+       " ", "the", " ", "initial", " ", "yield", " ", 
+       RowBox[{"limit", "!"}]}]}]}]}], "\[IndentingNewLine]", "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Main", " ", "part", " ", "in", " ", "which", " ", "the", " ", "isotropic",
+     " ", "hardening", " ", "law", " ", "is", " ", "defined"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Switch", "[", 
+    RowBox[{
+    "IsoHardType", ",", "\[IndentingNewLine]", "\"\<Cruzado2015\>\"", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IsoHardParam", "=", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Y0 (Initial yield limit)\>\"", ",", 
+         "\"\<ts (Saturation yield limit)\>\"", ",", 
+         "\"\<h0 (Initial hardening modulus)\>\"", ",", 
+         "\"\<hs (Saturation hardening modulus)\>\"", ",", 
+         "\"\<q (Degree of cross-hardening)\>\""}], "}"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"NumIsoHardParam", "=", 
+       RowBox[{"Length", "[", "IsoHardParam", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"isohard", "[", 
+        RowBox[{
+        "KappaOld_", ",", " ", "DeltaGamma_", ",", "GammaOld_", ",", "p_"}], 
+        "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "GammaAccumulated", ",", "h", ",", "ts", ",", "Y0", ",", "h0", ",", 
+           "hs", ",", "q", ",", "KappaNew"}], "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"Y0", ",", "ts", ",", "h0", ",", "hs", ",", "q"}], "}"}], 
+           "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"p", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", "5"}], "}"}]}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"GammaAccumulated", "=", 
+           RowBox[{"Sum", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"DeltaGamma", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "+", 
+              RowBox[{"GammaOld", "[", 
+               RowBox[{"[", "i", "]"}], "]"}]}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", 
+               RowBox[{"Length", "[", "DeltaGamma", "]"}]}], "}"}]}], "]"}]}],
+           ";", "\[IndentingNewLine]", 
+          RowBox[{"h", "=", 
+           RowBox[{"hs", "+", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"h0", "-", "hs", "-", 
+               RowBox[{"(", 
+                RowBox[{"h0", " ", "hs", " ", 
+                 RowBox[{"GammaAccumulated", "/", 
+                  RowBox[{"(", 
+                   RowBox[{"ts", "-", "Y0"}], ")"}]}]}], ")"}]}], ")"}], " ", 
+             RowBox[{"Exp", "[", 
+              RowBox[{
+               RowBox[{"-", "h0"}], " ", 
+               RowBox[{"GammaAccumulated", "/", 
+                RowBox[{"(", 
+                 RowBox[{"ts", "-", "Y0"}], ")"}]}]}], "]"}]}]}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"KappaNew", "=", 
+           RowBox[{"KappaOld", "+", 
+            RowBox[{"h", " ", 
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"Sum", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"DeltaGamma", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}], 
+                  RowBox[{"(", 
+                   RowBox[{"q", "+", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "q"}], ")"}], 
+                    RowBox[{"SMSKroneckerDelta", "[", 
+                    RowBox[{"i", ",", "j"}], "]"}]}]}], ")"}]}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", 
+                   RowBox[{"Length", "[", "DeltaGamma", "]"}]}], "}"}]}], 
+                "]"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"j", ",", 
+                 RowBox[{"Length", "[", "DeltaGamma", "]"}]}], "}"}]}], 
+              "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"Return", "[", "KappaNew", "]"}]}]}], "]"}]}]}], ",", 
+     "\[IndentingNewLine]", "\"\<Linear\>\"", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IsoHardParam", "=", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Y0 (Initial yield limit)\>\"", ",", 
+         "\"\<h0 (Initial hardening modulus)\>\"", ",", 
+         "\"\<q (Degree of cross-hardening)\>\""}], "}"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"NumIsoHardParam", "=", 
+       RowBox[{"Length", "[", "IsoHardParam", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"isohard", "[", 
+        RowBox[{
+        "KappaOld_", ",", " ", "DeltaGamma_", ",", "GammaOld_", ",", "p_"}], 
+        "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"h", ",", "Y0", ",", "h0", ",", "q", ",", "KappaNew"}], 
+          "}"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"Y0", ",", "h0", ",", "q"}], "}"}], "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"p", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", "3"}], "}"}]}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"h", "=", "h0"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"KappaNew", "=", 
+           RowBox[{"KappaOld", "+", 
+            RowBox[{"h", " ", 
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"Sum", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"DeltaGamma", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}], 
+                  RowBox[{"(", 
+                   RowBox[{"q", "+", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "q"}], ")"}], 
+                    RowBox[{"SMSKroneckerDelta", "[", 
+                    RowBox[{"i", ",", "j"}], "]"}]}]}], ")"}]}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", 
+                   RowBox[{"Length", "[", "DeltaGamma", "]"}]}], "}"}]}], 
+                "]"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"j", ",", 
+                 RowBox[{"Length", "[", "DeltaGamma", "]"}]}], "}"}]}], 
+              "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"Return", "[", "KappaNew", "]"}]}]}], "]"}]}]}], ",", 
+     "\[IndentingNewLine]", "\"\<Lindfeldt2012\>\"", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IsoHardParam", "=", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Y0 (Initial yield limit)\>\"", ",", 
+         "\"\<h0 (Initial hardening modulus)\>\"", ",", 
+         "\"\<hinf (Saturation hardening parameter)\>\"", ",", 
+         "\"\<xsi (Nonlinear isotropic parameter)\>\"", ",", 
+         "\"\<q (Degree of cross-hardening)\>\""}], "}"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"NumIsoHardParam", "=", 
+       RowBox[{"Length", "[", "IsoHardParam", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"isohard", "[", 
+        RowBox[{
+        "KappaOld_", ",", " ", "DeltaGamma_", ",", "GammaOld_", ",", "p_"}], 
+        "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "h", ",", "Y0", ",", "h0", ",", "hinf", ",", "xsi", ",", "q", ",", 
+           "A", ",", "GammaNew", ",", "KappaNew"}], "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"Y0", ",", "h0", ",", "hinf", ",", "xsi", ",", "q"}], 
+            "}"}], "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"p", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", "5"}], "}"}]}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"GammaNew", "=", 
+           RowBox[{"GammaOld", "+", "DeltaGamma"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"A", "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"Sum", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"q", "+", 
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{"1", "-", "q"}], ")"}], 
+                   RowBox[{"SMSKroneckerDelta", "[", 
+                    RowBox[{"i", ",", "j"}], "]"}]}]}], ")"}], 
+                RowBox[{"GammaNew", "[", 
+                 RowBox[{"[", "j", "]"}], "]"}]}], ",", 
+               RowBox[{"{", 
+                RowBox[{"j", ",", 
+                 RowBox[{"Length", "[", "KappaOld", "]"}]}], "}"}]}], "]"}], 
+             ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", 
+               RowBox[{"Length", "[", "KappaOld", "]"}]}], "}"}]}], "]"}]}], 
+          ";", "\[IndentingNewLine]", 
+          RowBox[{"h", "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"h0", "+", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"hinf", "-", "h0"}], ")"}], 
+               RowBox[{"(", 
+                RowBox[{"1", "-", 
+                 RowBox[{"Exp", "[", 
+                  RowBox[{
+                   RowBox[{"-", "xsi"}], " ", 
+                   RowBox[{"A", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}]}], "]"}]}], ")"}]}]}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", 
+               RowBox[{"Length", "[", "KappaOld", "]"}]}], "}"}]}], "]"}]}], 
+          ";", "\[IndentingNewLine]", 
+          RowBox[{"KappaNew", "=", 
+           RowBox[{"KappaOld", "+", 
+            RowBox[{"Table", "[", 
+             RowBox[{
+              RowBox[{"Sum", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"h", "[", 
+                  RowBox[{"[", "i", "]"}], "]"}], 
+                 RowBox[{"DeltaGamma", "[", 
+                  RowBox[{"[", "i", "]"}], "]"}], 
+                 RowBox[{"(", 
+                  RowBox[{"q", "+", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "q"}], ")"}], 
+                    RowBox[{"SMSKroneckerDelta", "[", 
+                    RowBox[{"i", ",", "j"}], "]"}]}]}], ")"}]}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"i", ",", 
+                  RowBox[{"Length", "[", "DeltaGamma", "]"}]}], "}"}]}], 
+               "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"j", ",", 
+                RowBox[{"Length", "[", "DeltaGamma", "]"}]}], "}"}]}], 
+             "]"}]}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"Return", "[", "KappaNew", "]"}]}]}], "]"}]}]}], ",", 
+     "\[IndentingNewLine]", "\"\<Hutchinson1976\>\"", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IsoHardParam", "=", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Y0 (Initial yield limit)\>\"", ",", 
+         "\"\<h0 (Initial hardening modulus)\>\"", ",", 
+         "\"\<hinf (Saturation hardening parameter)\>\"", ",", 
+         "\"\<xsi (Nonlinear isotropic parameter)\>\"", ",", 
+         "\"\<q (Degree of cross-hardening)\>\""}], "}"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"NumIsoHardParam", "=", 
+       RowBox[{"Length", "[", "IsoHardParam", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"isohard", "[", 
+        RowBox[{
+        "KappaOld_", ",", " ", "DeltaGamma_", ",", "GammaOld_", ",", "p_"}], 
+        "]"}], ":=", 
+       RowBox[{"Module", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "h", ",", "Y0", ",", "h0", ",", "hinf", ",", "xsi", ",", "q", ",", 
+           "A", ",", "GammaNew", ",", "KappaNew"}], "}"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"Y0", ",", "h0", ",", "hinf", ",", "xsi", ",", "q"}], 
+            "}"}], "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{
+             RowBox[{"p", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", "5"}], "}"}]}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"GammaNew", "=", 
+           RowBox[{"GammaOld", "+", "DeltaGamma"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"A", "=", 
+           RowBox[{"Sum", "[", 
+            RowBox[{
+             RowBox[{"GammaNew", "[", 
+              RowBox[{"[", "j", "]"}], "]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{"j", ",", 
+               RowBox[{"Length", "[", "KappaOld", "]"}]}], "}"}]}], "]"}]}], 
+          ";", "\[IndentingNewLine]", 
+          RowBox[{"h", "=", 
+           RowBox[{"h0", "+", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"hinf", "-", "h0"}], ")"}], 
+             RowBox[{"(", 
+              RowBox[{"1", "-", 
+               RowBox[{"Exp", "[", 
+                RowBox[{
+                 RowBox[{"-", "xsi"}], " ", "A"}], "]"}]}], ")"}]}]}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"KappaNew", "=", 
+           RowBox[{"KappaOld", "+", 
+            RowBox[{"h", " ", 
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"Sum", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"DeltaGamma", "[", 
+                   RowBox[{"[", "i", "]"}], "]"}], 
+                  RowBox[{"(", 
+                   RowBox[{"q", "+", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "q"}], ")"}], 
+                    RowBox[{"SMSKroneckerDelta", "[", 
+                    RowBox[{"i", ",", "j"}], "]"}]}]}], ")"}]}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"i", ",", 
+                   RowBox[{"Length", "[", "DeltaGamma", "]"}]}], "}"}]}], 
+                "]"}], ",", 
+               RowBox[{"{", 
+                RowBox[{"j", ",", 
+                 RowBox[{"Length", "[", "DeltaGamma", "]"}]}], "}"}]}], 
+              "]"}]}]}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"Return", "[", "KappaNew", "]"}]}]}], "]"}]}]}], ",", 
+     "\[IndentingNewLine]", "_", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IsoHardParam", "=", 
+       RowBox[{"{", "\"\<Y0\>\"", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"NumIsoHardParam", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"isohard", "[", 
+        RowBox[{"sysnr_", ",", "DeltaGamma_", ",", "GammaOld_", ",", "p_"}], 
+        "]"}], ":=", "0"}]}]}], "\[IndentingNewLine]", "]"}], 
+   ";"}]}]], "Input",
+ CellChangeTimes->{{3.758348294378935*^9, 3.7583483181797657`*^9}, {
+   3.7583485399875298`*^9, 3.7583486559379992`*^9}, {3.7583492569291444`*^9, 
+   3.75834945730588*^9}, {3.7583495213879623`*^9, 3.7583499002548666`*^9}, {
+   3.7583499683445516`*^9, 3.7583501793736553`*^9}, {3.7583502569358215`*^9, 
+   3.758350300130369*^9}, {3.758350360131524*^9, 3.758350421532242*^9}, {
+   3.7583506694977365`*^9, 3.7583508638472943`*^9}, {3.7583509044809713`*^9, 
+   3.758350914321203*^9}, {3.758350989650051*^9, 3.7583509926261034`*^9}, {
+   3.758369762990018*^9, 3.7583698168492413`*^9}, {3.758371650763318*^9, 
+   3.7583716833080673`*^9}, {3.758371714365015*^9, 3.758371724812996*^9}, 
+   3.7583737978205395`*^9, {3.758373898932419*^9, 3.7583739369684153`*^9}, 
+   3.7583740047223454`*^9, {3.7583740402023273`*^9, 3.7583741157083015`*^9}, {
+   3.7583741727752247`*^9, 3.7583741942302055`*^9}, {3.7583742996331477`*^9, 
+   3.758374329665115*^9}, {3.7583743857870827`*^9, 3.7583745509100337`*^9}, {
+   3.7583746001529136`*^9, 3.7583747148507147`*^9}, {3.7583749039117985`*^9, 
+   3.7583752747520933`*^9}, {3.758375467596648*^9, 3.7583754868691998`*^9}, {
+   3.7583759827368956`*^9, 3.7583759829768953`*^9}, {3.7585483651024475`*^9, 
+   3.758548690830164*^9}, {3.7585502901556582`*^9, 3.7585503479143577`*^9}, {
+   3.758550656734474*^9, 3.7585506681217527`*^9}, {3.7586127156201324`*^9, 
+   3.758612763492771*^9}, {3.758708124404967*^9, 3.758708152581691*^9}, {
+   3.758708188413247*^9, 3.758708235814478*^9}, {3.758708268832507*^9, 
+   3.7587082731276255`*^9}, {3.758708310487931*^9, 3.758708338088437*^9}, {
+   3.75870839194678*^9, 3.758708399434757*^9}, {3.7594100231838226`*^9, 
+   3.7594101004513025`*^9}, {3.759410149411075*^9, 3.7594105188537683`*^9}, {
+   3.759410578781979*^9, 3.759410608839755*^9}, 3.759411309970255*^9, {
+   3.7594628988052483`*^9, 3.759463001226365*^9}, {3.7594630680676317`*^9, 
+   3.759463085091935*^9}},ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-\
+9feb42e240c5"]
+},
+WindowSize->{775, 773},
+WindowMargins->{{-1729, Automatic}, {-38, Automatic}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 18731, 444, 1492, "Input",ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-9feb42e240c5"]
+}
+]
+*)
+

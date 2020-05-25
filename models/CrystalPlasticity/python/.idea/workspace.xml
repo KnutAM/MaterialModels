@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="925380d7-c341-47d4-b3a9-4530b814c6a6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../compiled/disthard_a1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../../../compiled/disthard_a1.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AceGen/Hutchinson1976exp_Lindfeldt_AF_bcc.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../AceGen/Hutchinson1976exp_Lindfeldt_AF_bcc.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AceGen/MainFile.nb" beforeDir="false" afterPath="$PROJECT_DIR$/../AceGen/MainFile.nb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AceGen/SubroutineGeneration.nb" beforeDir="false" afterPath="$PROJECT_DIR$/../AceGen/SubroutineGeneration.nb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AceGen/elastic.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../AceGen/elastic.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AceGen/jacobian.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../AceGen/jacobian.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AceGen/model_size.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../AceGen/model_size.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AceGen/plastic_output.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../AceGen/plastic_output.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AceGen/residual.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../AceGen/residual.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AceGen/tmpinfo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../AceGen/tmpinfo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/CP_FCC_Nort_Liniso.f90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Cruzado2015.f90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Hutchinson1976_Cowsym_AF_bcc.f90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Hutchinson1976_Norton_AF_bcc.f90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Hutchinson1976_nlkin_bcc.f90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Hutchinson1976exp_Lindfeldt_AF_bcc.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Hutchinson1976exp_Lindfeldt_AF_bcc.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Hutchinson1976exp_Norton_AF0_bcc.f90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Hutchinson1976exp_Norton_AF_bcc.f90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Lindfeldt2012_nlkin_bcc.f90" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/umat.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../src/umat.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/DistortionalHardening.nb" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/DistortionalHardening.nb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/KinematicHardening.nb" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/KinematicHardening.nb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/MainFile.nb" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/MainFile.nb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/ResidualSetup.nb" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/ResidualSetup.nb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/elastic.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/elastic.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/jacobian.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/jacobian.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/plastic_output.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/plastic_output.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/residual.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/residual.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/rmodel.f90" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/rmodel.f90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../disthard/acegen_rmodel/tmpinfo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../disthard/acegen_rmodel/tmpinfo.txt" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="155995172">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.opened" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="Python Console" value="980" />
+          <entry key="dummy" value="13" />
+          <entry key="py" value="20398" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PLAIN_TEXT" value="13" />
+          <entry key="Python" value="21378" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="8" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="8" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="-2047317488">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="all_errors" value="1" />
+          <entry key="py" value="1" />
+          <entry key="txt" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="PLAIN_TEXT" value="8" />
+          <entry key="Python" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="Python Console" value="170" />
+          <entry key="py" value="1488" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="1658" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="1572522025">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>math.</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>np.</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/orientation.py" />
+        <option value="$PROJECT_DIR$/SlipSystems.py" />
+        <option value="$PROJECT_DIR$/combine_files.py" />
+        <option value="$PROJECT_DIR$/AceGen/combine_files.py" />
+        <option value="$PROJECT_DIR$/python/orientation.py" />
+        <option value="$PROJECT_DIR$/../../../../CODING/Python/python_mps/mps.py" />
+        <option value="$PROJECT_DIR$/python/vpython_test.py" />
+        <option value="$PROJECT_DIR$/python/csys_rotation.py" />
+        <option value="$PROJECT_DIR$/python/optimize_rotations.py" />
+        <option value="$PROJECT_DIR$/optimize_rotations.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="7" />
+    <option name="width" value="1920" />
+    <option name="height" value="1047" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>BashSupport</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="python" type="b2602c69:ProjectViewProjectNode" />
+              <item name="python" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.optimize_rotations">
+    <configuration name="CombineFiles" type="PythonConfigurationType" factoryName="Python">
+      <module name="CrystalPlasticity" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\knutan\AppData\Local\Continuum\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../AceGen" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../AceGen/combine_files.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="SlipSystems" type="PythonConfigurationType" factoryName="Python">
+      <module name="CrystalPlasticity" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\knutan\AppData\Local\Continuum\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SlipSystems.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="CrystalPlasticity" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\knutan\AppData\Local\Continuum\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/orientation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="csys" type="PythonConfigurationType" factoryName="Python">
+      <module name="CrystalPlasticity" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\knutan\AppData\Local\Continuum\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/csys_rotation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="optimize_rotations" type="PythonConfigurationType" factoryName="Python">
+      <module name="CrystalPlasticity" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\knutan\AppData\Local\Continuum\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/optimize_rotations.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="orientation" type="PythonConfigurationType" factoryName="Python">
+      <module name="CrystalPlasticity" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\knutan\AppData\Local\Continuum\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/orientation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.orientation" />
+      <item itemvalue="Python.csys" />
+      <item itemvalue="Python.optimize_rotations" />
+      <item itemvalue="Python.SlipSystems" />
+      <item itemvalue="Python.CombineFiles" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="925380d7-c341-47d4-b3a9-4530b814c6a6" name="Default Changelist" comment="" />
+      <created>1549096696366</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1549096696366</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24920969" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32997987" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3752515" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39738432" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32897383" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3028169" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/python/orientation.py</url>
+          <line>154</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/combine_files.py" />
+    <entry file="file://$PROJECT_DIR$/../../../../CODING/Python/python_mps/mps.py" />
+    <entry file="file://$PROJECT_DIR$/AceGen/combine_files.py" />
+    <entry file="file://$PROJECT_DIR$/python/orientation.py" />
+    <entry file="file://$PROJECT_DIR$/python/csys_rotation.py" />
+    <entry file="file://$PROJECT_DIR$/python/optimize_rotations.py" />
+    <entry file="file://$PROJECT_DIR$/N3_csys_rot_2.txt" />
+    <entry file="file://$PROJECT_DIR$/N3_csys_rot_1.txt" />
+    <entry file="file://$PROJECT_DIR$/N3_csys_rot_0.txt" />
+    <entry file="file://$PROJECT_DIR$/N2_csys_rot_2.txt" />
+    <entry file="file://$PROJECT_DIR$/N2_csys_rot_1.txt" />
+    <entry file="file://$PROJECT_DIR$/N2_csys_rot_0.txt" />
+    <entry file="file://$PROJECT_DIR$/all_errors" />
+    <entry file="file://$PROJECT_DIR$/all_errors.txt" />
+    <entry file="file://$PROJECT_DIR$/optimize_rotations.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1710">
+          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+          <folding>
+            <marker date="1550342818903" expanded="true" signature="2169:2916" ph="..." />
+            <marker date="1550342818903" expanded="true" signature="3042:3242" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SlipSystems.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1751">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/orientation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2883" />
+      </provider>
+    </entry>
+  </component>
+</project>

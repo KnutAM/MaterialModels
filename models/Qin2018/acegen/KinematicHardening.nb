@@ -1,0 +1,443 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     18550,        435]
+NotebookOptionsPosition[     18159,        421]
+NotebookOutlinePosition[     18500,        436]
+CellTagsIndexPosition[     18457,        433]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"KINEMATIC", " ", "HARDENING", " ", "LAW"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+     "Various", " ", "kinematic", " ", "hardening", " ", "laws", " ", "can", 
+      " ", "be", " ", "setup", " ", "based", " ", "on", " ", "the", " ", 
+      "variable", " ", 
+      RowBox[{"KinHardType", ".", " ", "The"}], " ", "following", " ", 
+      "quantities", " ", "are", " ", "defined"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"-", " ", 
+      RowBox[{"KinHardParam", ":", " ", 
+       RowBox[{
+       "Array", " ", "of", " ", "strings", " ", "describing", " ", "the", " ",
+         "kinematic", " ", "hardening", " ", "parameters"}]}]}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"-", " ", 
+     RowBox[{"NumKinHardParam", ":", " ", 
+      RowBox[{
+      "Number", " ", "of", " ", "kinematic", " ", "hardening", " ", 
+       "parameters"}]}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"-", " ", 
+      RowBox[{"KinHardEvEq", "[", 
+       RowBox[{"i_", ",", "nu_", ",", "Mk_", ",", "p_"}], "]"}]}], ":", " ", 
+     RowBox[{
+     "Calculate", " ", "the", " ", "kinematic", " ", "evolution", " ", 
+      "law"}]}], ",", " ", "nuk"}], "\[IndentingNewLine]", "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Main", " ", "part", " ", "in", " ", "which", " ", "the", " ", "isotropic",
+     " ", "hardening", " ", "law", " ", "is", " ", "defined"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Switch", "[", 
+     RowBox[{
+     "KinHardType", ",", "\[IndentingNewLine]", "\"\<ArmstrongFrederick\>\"", 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"KinHardParam", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParamGeneral", "=", 
+        RowBox[{"Length", "[", "KinHardParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", 
+        RowBox[{
+         RowBox[{"KinHardParam", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{"KinHardParam", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"StringJoin", "[", 
+               RowBox[{"\"\<Hkin\>\"", ",", 
+                RowBox[{"ToString", "[", "i", "]"}]}], "]"}], ",", 
+              RowBox[{"StringJoin", "[", 
+               RowBox[{"\"\<Binf\>\"", ",", 
+                RowBox[{"ToString", "[", "i", "]"}]}], "]"}]}], "}"}]}], 
+           "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "nback"}], "}"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParam", "=", 
+        RowBox[{"Length", "[", "KinHardParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParamPerBack", "=", "2"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"KinHardEvEq", "[", 
+         RowBox[{"i_", ",", "nu_", ",", "Mk_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", "binf", "}"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"binf", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", 
+              RowBox[{
+               RowBox[{"NumKinHardParamPerBack", " ", 
+                RowBox[{"(", 
+                 RowBox[{"i", "-", "1"}], ")"}]}], "+", "2"}], "]"}], "]"}]}],
+            ";", "\[IndentingNewLine]", 
+           RowBox[{"Return", "[", 
+            RowBox[{
+             RowBox[{"-", "nu"}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"3", "/", "2"}], ")"}], 
+              RowBox[{
+               RowBox[{"trans9", "[", "Mk", "]"}], "/", "binf"}]}]}], 
+            "]"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", ",", 
+      "\[IndentingNewLine]", "\"\<AF_D07mod\>\"", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"KinHardParam", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParamGeneral", "=", 
+        RowBox[{"Length", "[", "KinHardParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", 
+        RowBox[{
+         RowBox[{"KinHardParam", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{"KinHardParam", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"StringJoin", "[", 
+               RowBox[{"\"\<Hkin\>\"", ",", 
+                RowBox[{"ToString", "[", "i", "]"}]}], "]"}], ",", 
+              RowBox[{"StringJoin", "[", 
+               RowBox[{"\"\<Binf\>\"", ",", 
+                RowBox[{"ToString", "[", "i", "]"}]}], "]"}]}], "}"}]}], 
+           "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "nback"}], "}"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParam", "=", 
+        RowBox[{"Length", "[", "KinHardParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParamPerBack", "=", "2"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"KinHardEvEq", "[", 
+         RowBox[{"i_", ",", "nu_", ",", "Mk_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", "binf", "}"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"binf", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", 
+              RowBox[{
+               RowBox[{"NumKinHardParamPerBack", " ", 
+                RowBox[{"(", 
+                 RowBox[{"i", "-", "1"}], ")"}]}], "+", "2"}], "]"}], "]"}]}],
+            ";", "\[IndentingNewLine]", 
+           RowBox[{"Return", "[", 
+            RowBox[{
+             RowBox[{"-", "nu"}], "+", 
+             RowBox[{
+              RowBox[{"norm9", "[", "nu", "]"}], 
+              RowBox[{"(", 
+               RowBox[{"3", "/", "2"}], ")"}], 
+              RowBox[{
+               RowBox[{"trans9", "[", "Mk", "]"}], "/", "binf"}]}]}], 
+            "]"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", ",", 
+      "\[IndentingNewLine]", "\"\<BC_D07mod\>\"", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"KinHardParam", "=", 
+        RowBox[{"{", "\"\<delta (amount of  AF vs BC)\>\"", "}"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParamGeneral", "=", 
+        RowBox[{"Length", "[", "KinHardParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", 
+        RowBox[{
+         RowBox[{"KinHardParam", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{"KinHardParam", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"StringJoin", "[", 
+               RowBox[{"\"\<Hkin\>\"", ",", 
+                RowBox[{"ToString", "[", "i", "]"}]}], "]"}], ",", 
+              RowBox[{"StringJoin", "[", 
+               RowBox[{"\"\<Binf\>\"", ",", 
+                RowBox[{"ToString", "[", "i", "]"}]}], "]"}]}], "}"}]}], 
+           "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "nback"}], "}"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParam", "=", 
+        RowBox[{"Length", "[", "KinHardParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParamPerBack", "=", "2"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"KinHardEvEq", "[", 
+         RowBox[{"i_", ",", "nu_", ",", "Mk_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"delta", ",", "binf"}], "}"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"delta", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"binf", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", 
+              RowBox[{"NumKinHardParamGeneral", "+", 
+               RowBox[{"NumKinHardParamPerBack", " ", 
+                RowBox[{"(", 
+                 RowBox[{"i", "-", "1"}], ")"}]}], "+", "2"}], "]"}], "]"}]}],
+            ";", "\[IndentingNewLine]", 
+           RowBox[{"Return", "[", 
+            RowBox[{
+             RowBox[{"-", "nu"}], "+", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"norm9", "[", "nu", "]"}], 
+                 RowBox[{"(", 
+                  RowBox[{"3", "/", "2"}], ")"}], "*", "delta", "*", 
+                 RowBox[{"dev9", "[", 
+                  RowBox[{"trans9", "[", "Mk", "]"}], "]"}]}], "+", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"1", "-", "delta"}], ")"}], "*", 
+                 RowBox[{"dco", "[", 
+                  RowBox[{"Mk", ",", "nu"}], "]"}], "*", 
+                 RowBox[{"nu", "/", 
+                  RowBox[{"norm9", "[", "nu", "]"}]}]}]}], ")"}], "/", 
+              "binf"}]}], "]"}]}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+      ",", "\[IndentingNewLine]", "\"\<OB_D07mod\>\"", ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"KinHardParam", "=", 
+        RowBox[{"{", "\"\<delta (amount of AF vs BC)\>\"", "}"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParamGeneral", "=", 
+        RowBox[{"Length", "[", "KinHardParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Do", "[", 
+        RowBox[{
+         RowBox[{"KinHardParam", "=", 
+          RowBox[{"Join", "[", 
+           RowBox[{"KinHardParam", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"StringJoin", "[", 
+               RowBox[{"\"\<Hkin\>\"", ",", 
+                RowBox[{"ToString", "[", "i", "]"}]}], "]"}], ",", 
+              RowBox[{"StringJoin", "[", 
+               RowBox[{"\"\<Binf\>\"", ",", 
+                RowBox[{"ToString", "[", "i", "]"}]}], "]"}], ",", 
+              RowBox[{"StringJoin", "[", 
+               RowBox[{"\"\<mexp\>\"", ",", 
+                RowBox[{"ToString", "[", "i", "]"}]}], "]"}]}], "}"}]}], 
+           "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "nback"}], "}"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParam", "=", 
+        RowBox[{"Length", "[", "KinHardParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumKinHardParamPerBack", "=", "3"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"KinHardEvEq", "[", 
+         RowBox[{"i_", ",", "nu_", ",", "Mk_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"delta", ",", "binf", ",", "mexp"}], "}"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"delta", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"binf", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", 
+              RowBox[{"NumKinHardParamGeneral", "+", 
+               RowBox[{"NumKinHardParamPerBack", " ", 
+                RowBox[{"(", 
+                 RowBox[{"i", "-", "1"}], ")"}]}], "+", "2"}], "]"}], "]"}]}],
+            ";", "\[IndentingNewLine]", 
+           RowBox[{"mexp", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", 
+              RowBox[{"NumKinHardParamGeneral", "+", 
+               RowBox[{"NumKinHardParamPerBack", " ", 
+                RowBox[{"(", 
+                 RowBox[{"i", "-", "1"}], ")"}]}], "+", "3"}], "]"}], "]"}]}],
+            ";", "\[IndentingNewLine]", 
+           RowBox[{"Return", "[", 
+            RowBox[{
+             RowBox[{"-", "nu"}], "+", 
+             RowBox[{"SMSIf", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"vonM", "[", "Mk", "]"}], "<", "eps"}], ",", 
+               RowBox[{"0", "*", "nu"}], ",", 
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{"1", "/", "binf"}], ")"}], "^", 
+                  RowBox[{"(", 
+                   RowBox[{"mexp", "+", "1"}], ")"}]}], ")"}], "*", 
+                RowBox[{"macaulay", "[", 
+                 RowBox[{"dco", "[", 
+                  RowBox[{"nu", ",", "Mk"}], "]"}], "]"}], "*", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{"vonM", "[", "Mk", "]"}], ")"}], "^", "mexp"}], 
+                 ")"}], "*", 
+                RowBox[{"(", 
+                 RowBox[{
+                  RowBox[{"delta", "*", 
+                   RowBox[{"(", 
+                    RowBox[{"3", "/", "2"}], ")"}], "*", 
+                   RowBox[{
+                    RowBox[{"dev9", "[", 
+                    RowBox[{"trans9", "[", "Mk", "]"}], "]"}], "/", 
+                    RowBox[{"vonM", "[", "Mk", "]"}]}]}], "+", 
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{"1", "-", "delta"}], ")"}], "*", 
+                   RowBox[{"nu", "/", 
+                    RowBox[{"norm9", "[", "nu", "]"}]}]}]}], ")"}]}]}], 
+              "]"}]}], "]"}]}]}], "]"}]}], ";"}]}], "\[IndentingNewLine]", 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Mkinfun", "[", 
+      RowBox[{"p_", ",", "i_", ",", "Fk_"}], "]"}], ":=", 
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"ck", ",", "Hkin", ",", "Mkin"}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"ck", "=", 
+         RowBox[{"v9dv9", "[", 
+          RowBox[{
+           RowBox[{"trans9", "[", 
+            RowBox[{"inv9", "[", "Fk", "]"}], "]"}], ",", 
+           RowBox[{"inv9", "[", "Fk", "]"}]}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"Hkin", "=", 
+         RowBox[{"p", "[", 
+          RowBox[{"[", 
+           RowBox[{"NumKinHardParamGeneral", "+", 
+            RowBox[{"NumKinHardParamPerBack", " ", 
+             RowBox[{"(", 
+              RowBox[{"i", " ", "-", "1"}], ")"}]}], "+", "1"}], "]"}], 
+          "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Mkin", "=", 
+         RowBox[{"Hkin", "*", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"det9", "[", "ck", "]"}], ")"}], "^", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"-", "1"}], "/", "3"}], ")"}]}], ")"}], "*", 
+          RowBox[{"dev9", "[", "ck", "]"}]}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"Return", "[", "Mkin", "]"}], ";"}]}], "]"}]}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.758348294378935*^9, 3.7583483181797657`*^9}, {
+   3.7583485399875298`*^9, 3.7583486559379992`*^9}, {3.7583492569291444`*^9, 
+   3.75834945730588*^9}, {3.7583495213879623`*^9, 3.7583499002548666`*^9}, {
+   3.7583499683445516`*^9, 3.7583501793736553`*^9}, {3.7583502569358215`*^9, 
+   3.758350300130369*^9}, {3.758350360131524*^9, 3.758350421532242*^9}, {
+   3.7583506694977365`*^9, 3.7583508638472943`*^9}, {3.7583509044809713`*^9, 
+   3.758350914321203*^9}, {3.758350989650051*^9, 3.7583509926261034`*^9}, {
+   3.758369762990018*^9, 3.7583698168492413`*^9}, {3.758371650763318*^9, 
+   3.7583716833080673`*^9}, {3.758371714365015*^9, 3.758371724812996*^9}, 
+   3.7583737978205395`*^9, {3.758373898932419*^9, 3.7583739369684153`*^9}, 
+   3.7583740047223454`*^9, {3.7583740402023273`*^9, 3.7583741157083015`*^9}, {
+   3.7583741727752247`*^9, 3.7583741942302055`*^9}, {3.7583742996331477`*^9, 
+   3.758374329665115*^9}, {3.7583743857870827`*^9, 3.7583745509100337`*^9}, {
+   3.7583746001529136`*^9, 3.7583747148507147`*^9}, {3.7583749039117985`*^9, 
+   3.7583752747520933`*^9}, {3.758375442132518*^9, 3.758375492492196*^9}, {
+   3.7583755274771647`*^9, 3.758375566670991*^9}, {3.7583756133839564`*^9, 
+   3.75837576135618*^9}, {3.758375796932123*^9, 3.7583758772842755`*^9}, {
+   3.7583763482309213`*^9, 3.7583765396984425`*^9}, {3.7585480239350944`*^9, 
+   3.7585482605546246`*^9}, {3.763806706566324*^9, 3.7638068863956237`*^9}, {
+   3.7638070642304983`*^9, 3.763807074359476*^9}, {3.763815505285423*^9, 
+   3.7638156354457445`*^9}, {3.763815675729823*^9, 3.7638157204232197`*^9}, {
+   3.763815758640601*^9, 3.763815827057395*^9}, {3.7638158612339153`*^9, 
+   3.7638160518447957`*^9}, {3.763816111421323*^9, 3.7638162445673943`*^9}, {
+   3.763818981615469*^9, 3.7638189829037485`*^9}, 3.763821316858295*^9, {
+   3.7638216698893943`*^9, 3.7638216909475746`*^9}, {3.7638263293010244`*^9, 
+   3.763826330576527*^9}, {3.764228711271018*^9, 3.7642287296042013`*^9}, {
+   3.764228782141968*^9, 3.76422881983012*^9}, {3.7643975061524115`*^9, 
+   3.764397507517434*^9}, {3.7643976625695553`*^9, 3.7643976880406027`*^9}, {
+   3.764397749302026*^9, 3.76439775395302*^9}, {3.764397947674576*^9, 
+   3.764398060203963*^9}, {3.764398288111614*^9, 3.764398322110447*^9}, 
+   3.764398592216211*^9, {3.7644023411302347`*^9, 3.764402544163641*^9}, {
+   3.764402623555848*^9, 3.76440262389205*^9}, {3.7649880249582725`*^9, 
+   3.7649880324819307`*^9}, {3.764988063145691*^9, 3.7649880760572405`*^9}, {
+   3.76499598522361*^9, 3.7649959853536067`*^9}, {3.7649988801860695`*^9, 
+   3.7649988828361187`*^9}, {3.7649989978245306`*^9, 
+   3.7649990827179193`*^9}, {3.7649991722693005`*^9, 
+   3.7649992723537693`*^9}, {3.764999316642932*^9, 3.764999323507964*^9}, {
+   3.7744547620648403`*^9, 3.774454781504157*^9}, {3.7744548994246387`*^9, 
+   3.7744549109399595`*^9}},ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-\
+9feb42e240c5"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.7583827118510456`*^9, 3.758382712772956*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"3eac8b5e-670a-44f0-ac00-4ddd94416aac"]
+},
+WindowSize->{958, 988},
+WindowMargins->{{-7, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 17422, 395, 1169, "Input",ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-9feb42e240c5"],
+Cell[17983, 417, 172, 2, 28, "Input",ExpressionUUID->"3eac8b5e-670a-44f0-ac00-4ddd94416aac"]
+}
+]
+*)
+

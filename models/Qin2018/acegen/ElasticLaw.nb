@@ -1,0 +1,310 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     12693,        302]
+NotebookOptionsPosition[     12391,        289]
+NotebookOutlinePosition[     12737,        304]
+CellTagsIndexPosition[     12694,        301]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ELASTIC", " ", "LAW"}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+     "Various", " ", "elastic", " ", "laws", " ", "can", " ", "be", " ", 
+      "setup", " ", "based", " ", "on", " ", "the", " ", "variable", " ", 
+      RowBox[{"ElasticityType", ".", " ", "The"}], " ", "following", " ", 
+      "quantities", " ", "are", " ", "defined"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"-", " ", 
+      RowBox[{"ElasticityParam", ":", " ", 
+       RowBox[{
+       "Array", " ", "of", " ", "strings", " ", "describing", " ", "the", " ",
+         "elasticity", " ", "parameters"}]}]}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{"-", " ", 
+     RowBox[{"NumElasticityParam", ":", " ", 
+      RowBox[{"Number", " ", "of", " ", "elasticity", " ", "parameters"}]}]}],
+     ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"-", " ", 
+      RowBox[{"elastic", "[", 
+       RowBox[{"Ce_", ",", "p_"}], "]"}]}], ":", " ", 
+     RowBox[{
+     "Given", " ", "the", " ", "elastic", " ", "right", " ", "cauchy", " ", 
+      "green", " ", "deformation", " ", "tensor", " ", "Ce", " ", "and", " ", 
+      "parameters", " ", "p"}]}], ",", " ", 
+    RowBox[{
+    "calculates", " ", "the", " ", "2", "nd", " ", "Piola", " ", "Kirchhoff", 
+     " ", 
+     RowBox[{"stress", "."}]}]}], "\[IndentingNewLine]", "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Utility", " ", "function", " ", "used", " ", "later"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"CmatCubicSymmetry", "[", 
+      RowBox[{"C11_", ",", "C12_", ",", "C44_"}], "]"}], ":=", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "C11", ",", "C12", ",", "C12", ",", "     ", "0", ",", "     ", "0", 
+         ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+        "C12", ",", "C11", ",", "C12", ",", "     ", "0", ",", "     ", "0", 
+         ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+        "C12", ",", "C12", ",", "C11", ",", "     ", "0", ",", "     ", "0", 
+         ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", "    ", 
+        RowBox[{
+        "0", ",", "     ", "0", ",", "     ", "0", ",", "C44", ",", "     ", 
+         "0", ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", "    ", 
+        RowBox[{
+        "0", ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "C44", ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", "    ", 
+        RowBox[{
+        "0", ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0", ",", "C44", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", "    ", 
+        RowBox[{
+        "0", ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0", ",", "     ", "0", ",", "C44", ",", "     ", "0", ",", 
+         "     ", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", "    ", 
+        RowBox[{
+        "0", ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", "C44", ",", 
+         "     ", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", "    ", 
+        RowBox[{
+        "0", ",", "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", 
+         "     ", "0", ",", "     ", "0", ",", "     ", "0", ",", "     ", 
+         "0", ",", "C44"}], "}"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Main", " ", "part", " ", "in", " ", "which", " ", "the", " ", "elastic", 
+     " ", "law", " ", "is", " ", "defined"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Switch", "[", 
+     RowBox[{
+     "ElasticType", ",", "\[IndentingNewLine]", "\"\<StVernantIsotropy\>\"", 
+      ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"ElasticParam", "=", 
+        RowBox[{"{", 
+         RowBox[{"\"\<E\>\"", ",", "\"\<G\>\""}], "}"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"NumElasticParam", "=", 
+        RowBox[{"Length", "[", "ElasticParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"elastic", "[", 
+         RowBox[{"Ce_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+           "E", ",", "G", ",", "la", ",", "C11", ",", "C12", ",", "C44", ",", 
+            "Cmat", ",", "S"}], "}"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"E", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], ";", 
+           RowBox[{"G", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"la", "=", 
+            RowBox[{"G", "*", 
+             RowBox[{
+              RowBox[{"(", 
+               RowBox[{"E", "-", 
+                RowBox[{"2", "*", "G"}]}], ")"}], "/", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"3", "*", "G"}], "-", "E"}], ")"}]}]}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"C11", "=", 
+            RowBox[{
+             RowBox[{"2", "*", "G"}], "+", "la"}]}], ";", 
+           RowBox[{"C12", "=", "la"}], ";", 
+           RowBox[{"C44", "=", 
+            RowBox[{"2", "*", "G"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Cmat", "=", 
+            RowBox[{"CmatCubicSymmetry", "[", 
+             RowBox[{"C11", ",", "C12", ",", "C44"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"S", "=", 
+            RowBox[{
+             RowBox[{"Cmat", ".", 
+              RowBox[{"(", 
+               RowBox[{"Ce", "-", 
+                RowBox[{"{", 
+                 RowBox[{
+                 "1", ",", "1", ",", "1", ",", "0", ",", "0", ",", "0", ",", 
+                  "0", ",", "0", ",", "0"}], "}"}]}], ")"}]}], "/", "2"}]}], 
+           ";", "\[IndentingNewLine]", 
+           RowBox[{"Return", "[", "S", "]"}]}]}], "]"}]}]}], ",", 
+      "\[IndentingNewLine]", "\"\<StVernantCrystalSymmetry\>\"", ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"ElasticParam", "=", 
+        RowBox[{"{", 
+         RowBox[{"\"\<C11\>\"", ",", "\"\<C12\>\"", ",", "\"\<C44\>\""}], 
+         "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"NumElasticParam", "=", 
+        RowBox[{"Length", "[", "ElasticParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"elastic", "[", 
+         RowBox[{"Ce_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"C11", ",", "C12", ",", "C44", ",", "Cmat", ",", "S"}], 
+           "}"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"C11", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], ";", 
+           RowBox[{"C12", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], ";", 
+           RowBox[{"C44", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "3", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Cmat", "=", 
+            RowBox[{"CmatCubicSymmetry", "[", 
+             RowBox[{"C11", ",", "C12", ",", "C44"}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"S", "=", 
+            RowBox[{
+             RowBox[{"Cmat", ".", 
+              RowBox[{"(", 
+               RowBox[{"Ce", "-", 
+                RowBox[{"{", 
+                 RowBox[{
+                 "1", ",", "1", ",", "1", ",", "0", ",", "0", ",", "0", ",", 
+                  "0", ",", "0", ",", "0"}], "}"}]}], ")"}]}], "/", "2"}]}], 
+           ";", "\[IndentingNewLine]", 
+           RowBox[{"Return", "[", "S", "]"}]}]}], "]"}]}]}], ",", 
+      "\[IndentingNewLine]", "\"\<NeoHookean\>\"", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"ElasticParam", "=", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<G (Shear modulus)\>\"", ",", "\"\<K (Bulk modulus)\>\""}], 
+         "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"NumElasticParam", "=", 
+        RowBox[{"Length", "[", "ElasticParam", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"elastic", "[", 
+         RowBox[{"Ce_", ",", "p_"}], "]"}], ":=", 
+        RowBox[{"Module", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"Gmod", ",", "Kmod", ",", "S"}], "}"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Gmod", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Kmod", "=", 
+            RowBox[{"p", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"S", "=", " ", 
+            RowBox[{"v9dv9", "[", 
+             RowBox[{
+              RowBox[{"inv9", "[", "Ce", "]"}], ",", 
+              RowBox[{"(", 
+               RowBox[{
+                RowBox[{"Gmod", "*", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{"det9", "[", "Ce", "]"}], ")"}], "^", 
+                   RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"-", "1"}], "/", "3"}], ")"}]}], ")"}], "*", 
+                 RowBox[{"dev9", "[", "Ce", "]"}]}], " ", "+", " ", 
+                RowBox[{"Kmod", "*", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"det9", "[", "Ce", "]"}], " ", "-", " ", 
+                   RowBox[{"SMSSqrt", "[", 
+                    RowBox[{"det9", "[", "Ce", "]"}], "]"}]}], ")"}], "*", 
+                 "I2"}]}], ")"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Return", "[", "S", "]"}]}]}], "]"}]}]}], ",", 
+      "\[IndentingNewLine]", "_", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Print", "[", "\"\<WARNING: NO ELASTIC LAW CHOSEN\>\"", "]"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"ElasticParam", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"NumElasticParam", "=", "0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"elastic", "[", 
+         RowBox[{"Ce_", ",", "p_"}], "]"}], ":=", "0"}]}]}], "]"}], 
+    ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.758348294378935*^9, 3.7583483181797657`*^9}, {
+  3.7583485399875298`*^9, 3.7583486559379992`*^9}, {3.7583492569291444`*^9, 
+  3.75834945730588*^9}, {3.7583495213879623`*^9, 3.7583499002548666`*^9}, {
+  3.7583499683445516`*^9, 3.7583501793736553`*^9}, {3.7583502569358215`*^9, 
+  3.758350300130369*^9}, {3.758350360131524*^9, 3.758350421532242*^9}, {
+  3.7583506694977365`*^9, 3.7583508638472943`*^9}, {3.7583509044809713`*^9, 
+  3.758350914321203*^9}, {3.758350989650051*^9, 3.7583509926261034`*^9}, {
+  3.7583806414889994`*^9, 3.7583807011605616`*^9}, {3.763798892551959*^9, 
+  3.763799042389868*^9}, {3.763799158370264*^9, 3.7637992108004694`*^9}, {
+  3.763822752203062*^9, 3.763822796067479*^9}, {3.763822839403119*^9, 
+  3.7638228403631144`*^9}, {3.7638230631734324`*^9, 
+  3.763823066025387*^9}},ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-\
+9feb42e240c5"]
+},
+WindowSize->{775, 872},
+WindowMargins->{{-1780, Automatic}, {-32, Automatic}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 11829, 267, 1055, "Input",ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-9feb42e240c5"]
+}
+]
+*)
+

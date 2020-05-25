@@ -1,0 +1,523 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     24333,        515]
+NotebookOptionsPosition[     23651,        498]
+NotebookOutlinePosition[     23993,        513]
+CellTagsIndexPosition[     23950,        510]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Get", " ", "model", " ", "sizes"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"InputCheckStream", "=", 
+     RowBox[{"OpenWrite", "[", 
+      RowBox[{"StringJoin", "[", 
+       RowBox[{
+        RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+        "\"\<\\\\model_size.f90\>\""}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"WriteString", "[", 
+     RowBox[{
+     "InputCheckStream", ",", 
+      "\"\<\\nsubroutine model_size(nparam,nstatv,nvar)\\n\>\""}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"WriteString", "[", 
+     RowBox[{"InputCheckStream", ",", "\"\<implicit none\\n\>\""}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"WriteString", "[", 
+     RowBox[{
+     "InputCheckStream", ",", "\"\<integer nparam, nstatv, nvar\\n\>\""}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"WriteString", "[", 
+     RowBox[{"InputCheckStream", ",", 
+      RowBox[{"StringJoin", "[", 
+       RowBox[{"\"\<nparam = \>\"", ",", " ", 
+        RowBox[{"ToString", "[", "NumParam", "]"}], ",", " ", "\"\<\\n\>\""}],
+        "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"WriteString", "[", 
+     RowBox[{"InputCheckStream", ",", 
+      RowBox[{"StringJoin", "[", 
+       RowBox[{"\"\<nstatv = \>\"", ",", " ", 
+        RowBox[{"ToString", "[", "nstatv", "]"}], ",", " ", "\"\<\\n\>\""}], 
+       "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"WriteString", "[", 
+     RowBox[{"InputCheckStream", ",", 
+      RowBox[{"StringJoin", "[", 
+       RowBox[{"\"\<nvar = \>\"", ",", " ", 
+        RowBox[{"ToString", "[", "nvar", "]"}], ",", " ", "\"\<\\n\>\""}], 
+       "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"WriteString", "[", 
+     RowBox[{
+     "InputCheckStream", ",", "\"\<end subroutine model_size\\n\>\""}], "]"}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Close", "[", "InputCheckStream", "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.7585584672382994`*^9, 3.7585586183348494`*^9}, {
+  3.758558769125349*^9, 3.7585589395602436`*^9}, {3.758559084615696*^9, 
+  3.758559101334182*^9}, {3.758559214130969*^9, 3.7585592152025585`*^9}, {
+  3.75861310357734*^9, 3.758613154724453*^9}, {3.758614423217364*^9, 
+  3.7586144421191645`*^9}, {3.7638208599853063`*^9, 3.7638208604223394`*^9}, {
+  3.7638314410507517`*^9, 3.763831444728892*^9}, {3.765024600113755*^9, 
+  3.765024602860665*^9}, {3.7665599637682033`*^9, 3.766559966286437*^9}, {
+  3.7665622295213594`*^9, 3.766562232239441*^9}, {3.7665647218453054`*^9, 
+  3.7665647244383364`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"c8cbaeb8-32a0-4364-ba23-e857a719d260"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Elastic", " ", "function"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"If", "[", 
+    RowBox[{"GenElastic", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"SMSInitialize", "[", 
+       RowBox[{"\"\<elastic\>\"", ",", 
+        RowBox[{"\"\<Language\>\"", "\[Rule]", "\"\<Fortran90\>\""}]}], "]"}],
+       ";", "\n", 
+      RowBox[{"SMSModule", "[", 
+       RowBox[{"\"\<elastic\>\"", ",", 
+        RowBox[{"Real", "[", 
+         RowBox[{
+          RowBox[{"mpar$$", "[", "NumParam", "]"}], ",", 
+          RowBox[{"statev$$", "[", "nstatv", "]"}], ",", 
+          RowBox[{"Fnew$$", "[", "9", "]"}], ",", 
+          RowBox[{"sigma$$", "[", "6", "]"}], ",", 
+          RowBox[{"ddsdde$$", "[", 
+           RowBox[{"6", ",", "6"}], "]"}], ",", "yielding$$", ",", 
+          RowBox[{"xguess$$", "[", "nvar", "]"}]}], "]"}], ",", 
+        RowBox[{"\"\<Output\>\"", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+          "sigma$$", ",", "ddsdde$$", ",", "yielding$$", ",", "xguess$$"}], 
+          "}"}]}], ",", 
+        RowBox[{"\"\<Input\>\"", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"mpar$$", ",", "statev$$", ",", "Fnew$$"}], "}"}]}]}], 
+       "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"RunSubModules", "[", 
+       RowBox[{"{", "\"\<ElasticSetup\>\"", "}"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Export", " ", "variables"}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"SMSExport", "[", 
+       RowBox[{"sigma", ",", "sigma$$"}], "]"}], ";", "\n", 
+      RowBox[{"SMSExport", "[", 
+       RowBox[{"ddsdde", ",", "ddsdde$$"}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"SMSExport", "[", 
+       RowBox[{"yielding", ",", "yielding$$"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"SMSExport", "[", 
+       RowBox[{"xguess", ",", "xguess$$"}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"SMSWrite", "[", "]"}]}]}], "]"}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.758597922741627*^9, 3.7585979928205333`*^9}, {
+   3.758598055123966*^9, 3.7585980632690125`*^9}, {3.7585981041466217`*^9, 
+   3.758598182638117*^9}, {3.758598359850548*^9, 3.7585983611775684`*^9}, {
+   3.7585984526929417`*^9, 3.758598454650942*^9}, {3.758603770116197*^9, 
+   3.758603774394616*^9}, {3.7586039707901945`*^9, 3.758604073421958*^9}, 
+   3.7586045463465614`*^9, {3.758623394927924*^9, 3.7586234010378575`*^9}, {
+   3.75863286214373*^9, 3.7586328656037245`*^9}, {3.758633236780197*^9, 
+   3.758633239692769*^9}, {3.763798678554427*^9, 3.763798698408594*^9}, 
+   3.763821748779911*^9, {3.763826547166892*^9, 3.763826551220971*^9}, {
+   3.7638290217596426`*^9, 3.7638290239649744`*^9}, {3.764998795976699*^9, 
+   3.7649987998747196`*^9}, {3.764999469972339*^9, 3.7649994726013403`*^9}, {
+   3.765024604950598*^9, 3.765024608872473*^9}, {3.7665588360014153`*^9, 
+   3.7665588735884013`*^9}, {3.76655995456339*^9, 3.76655995684422*^9}, {
+   3.766562234613455*^9, 3.766562237574504*^9}, {3.7665647263303347`*^9, 
+   3.766564728201305*^9}, {3.766743297261643*^9, 3.7667433000056396`*^9}, {
+   3.766747540809432*^9, 3.7667475429120226`*^9}, {3.7693493843305874`*^9, 
+   3.769349413915276*^9}, {3.7693504540612993`*^9, 3.769350455284582*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"41c7e353-72e5-4e39-948e-e1cee7e84795"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Residual", " ", "function"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"SMSInitialize", "[", 
+     RowBox[{"\"\<residual\>\"", ",", 
+      RowBox[{"\"\<Language\>\"", "\[Rule]", "\"\<Fortran90\>\""}]}], "]"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"SMSModule", "[", 
+     RowBox[{"\"\<residual\>\"", ",", 
+      RowBox[{"Real", "[", 
+       RowBox[{
+        RowBox[{"x$$", "[", "nvar", "]"}], ",", 
+        RowBox[{"mpar$$", "[", "NumParam", "]"}], ",", 
+        RowBox[{"statev$$", "[", "nstatv", "]"}], ",", 
+        RowBox[{"Fnew$$", "[", "9", "]"}], ",", 
+        RowBox[{"R$$", "[", "nvar", "]"}]}], "]"}], ",", 
+      RowBox[{"\"\<Output\>\"", "\[Rule]", 
+       RowBox[{"{", "R$$", "}"}]}], ",", 
+      RowBox[{"\"\<Input\>\"", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"x$$", ",", "mpar$$", ",", "statev$$", ",", "Fnew$$"}], 
+        "}"}]}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"RunSubModules", "[", 
+     RowBox[{"{", "\"\<ResidualSetup\>\"", "}"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Write", " ", "output"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Mred2", " ", "\[DoubleRightTee]", 
+      RowBox[{"dco", "[", 
+       RowBox[{
+        RowBox[{"dco", "[", 
+         RowBox[{"HatMred", ",", "CC"}], "]"}], ",", "HatMred"}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"SMSIf", "[", 
+      RowBox[{
+       RowBox[{"Mred2", "<", "0.0"}], ","}]}]}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{"PrintOutput", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"SMSPrintMessage", "[", 
+        RowBox[{
+        "\"\<Lold, Lnew: \>\"", ",", " ", "lambdaOld", ",", " ", 
+         "HatLambda"}], "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"SMSPrintMessage", "[", 
+        RowBox[{"\"\<N = \>\"", ",", "Ndir"}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"N4", "=", 
+        RowBox[{"op", "[", 
+         RowBox[{"Ndir", ",", "Ndir"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"N4perp", "=", 
+        RowBox[{"I4dev", "-", "N4"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"SMSPrintMessage", "[", "\"\<Ndir:(I4dev):Ndir:\>\"", "]"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"SMSPrintMessage", "[", 
+        RowBox[{"dco", "[", 
+         RowBox[{
+          RowBox[{"dco", "[", 
+           RowBox[{"Ndir", ",", "I4dev"}], "]"}], ",", "Ndir"}], "]"}], "]"}],
+        ";", "\[IndentingNewLine]", 
+       RowBox[{"SMSPrintMessage", "[", "\"\<Ndir:(N4):Ndir:\>\"", "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"SMSPrintMessage", "[", 
+        RowBox[{"dco", "[", 
+         RowBox[{
+          RowBox[{"dco", "[", 
+           RowBox[{"Ndir", ",", "N4"}], "]"}], ",", "Ndir"}], "]"}], "]"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{
+       "SMSPrintMessage", "[", "\"\<Ndir:(CD-I4dev):Ndir/dlam\>\"", "]"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"SMSPrintMessage", "[", 
+        RowBox[{"dco", "[", 
+         RowBox[{
+          RowBox[{"dco", "[", 
+           RowBox[{"Ndir", ",", 
+            RowBox[{"V21toV9x9FULLSYM", "[", 
+             RowBox[{"CD", "/", "dlam"}], "]"}]}], "]"}], ",", "Ndir"}], 
+         "]"}], "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{
+       "SMSPrintMessage", "[", "\"\<Ndir:(CL-I4dev):Ndir/dlam\>\"", "]"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"SMSPrintMessage", "[", 
+        RowBox[{"dco", "[", 
+         RowBox[{
+          RowBox[{"dco", "[", 
+           RowBox[{"Ndir", ",", 
+            RowBox[{"V21toV9x9FULLSYM", "[", 
+             RowBox[{"CL", "/", "dlam"}], "]"}]}], "]"}], ",", "Ndir"}], 
+         "]"}], "]"}], ";"}]}], "\[IndentingNewLine]", 
+     RowBox[{"(*", 
+      RowBox[{
+       RowBox[{"Do", "[", 
+        RowBox[{
+         RowBox[{"SMSPrintMessage", "[", 
+          RowBox[{"N4", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "9"}], "}"}]}], "]"}], ";"}], "*)"}], 
+     "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Export", " ", "variables"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"SMSExport", "[", 
+     RowBox[{"R", ",", "R$$"}], "]"}], ";"}], "\n", 
+   RowBox[{"SMSWrite", "[", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.758551431156185*^9, 3.758551439377289*^9}, {
+   3.758551613752486*^9, 3.7585516273053055`*^9}, 3.7585517339082203`*^9, {
+   3.758553296468956*^9, 3.7585532992979264`*^9}, {3.7585584628053484`*^9, 
+   3.7585584657785454`*^9}, {3.758604085058103*^9, 3.758604097559097*^9}, {
+   3.7586045973200245`*^9, 3.7586045976880226`*^9}, {3.758604670820462*^9, 
+   3.758604673328574*^9}, {3.758604740107653*^9, 3.758604751637059*^9}, {
+   3.7586234041765904`*^9, 3.758623404734621*^9}, 3.758632870525524*^9, {
+   3.7586330798946295`*^9, 3.7586330814556255`*^9}, {3.7586332324460917`*^9, 
+   3.7586332346441164`*^9}, {3.7587135649948845`*^9, 3.758713579793294*^9}, {
+   3.7638208979194913`*^9, 3.763820921776193*^9}, {3.7638266757447243`*^9, 
+   3.7638266997603736`*^9}, {3.7649988024227533`*^9, 
+   3.7649988073687487`*^9}, {3.7665616953519*^9, 3.766561707833933*^9}, 
+   3.766562430796747*^9, {3.7668076328621097`*^9, 3.7668076332610803`*^9}, {
+   3.7668095004261703`*^9, 3.766809535235153*^9}, {3.7668096435639873`*^9, 
+   3.766809646695187*^9}, {3.7668099535724506`*^9, 3.7668099569644117`*^9}, {
+   3.7668131298181725`*^9, 3.766813133320715*^9}, {3.7668219077026443`*^9, 
+   3.76682191421273*^9}, {3.766893256703676*^9, 3.76689328003964*^9}, {
+   3.7668933652719603`*^9, 3.7668933703116274`*^9}, {3.7668936045134463`*^9, 
+   3.7668936049297338`*^9}, {3.766901486908499*^9, 3.766901493077166*^9}, {
+   3.7689772027181373`*^9, 3.768977251761126*^9}, {3.7689772906180353`*^9, 
+   3.7689773315892973`*^9}, {3.7689774155151873`*^9, 3.768977419378857*^9}, {
+   3.7689775757486963`*^9, 3.768977784043311*^9}, {3.7689783767241755`*^9, 
+   3.768978382544285*^9}, {3.7689788543279395`*^9, 3.7689789118807416`*^9}, {
+   3.768980029277379*^9, 3.7689800378686743`*^9}, {3.7689800886793637`*^9, 
+   3.7689801418901052`*^9}, {3.768980279178588*^9, 3.7689803474126863`*^9}, 
+   3.7689805756870155`*^9, {3.7689807877591305`*^9, 3.768980795806838*^9}, {
+   3.769164196138095*^9, 3.7691641971421127`*^9}, {3.769222464191653*^9, 
+   3.76922248773015*^9}, {3.769222536896377*^9, 3.769222634698882*^9}, {
+   3.769222680369484*^9, 3.769222721044386*^9}, 3.769223402267112*^9, {
+   3.7693256517132463`*^9, 3.7693257219625597`*^9}, {3.769326453955613*^9, 
+   3.769326520673213*^9}, {3.769327793345758*^9, 3.7693278201205873`*^9}, 
+   3.7693493727485895`*^9, {3.7693505169318933`*^9, 3.7693505280316224`*^9}, {
+   3.769497342502555*^9, 3.7694973544919853`*^9}, {3.7694984538365173`*^9, 
+   3.7694984767630453`*^9}, {3.7694985256951*^9, 3.7694986822246265`*^9}, {
+   3.7694989965083246`*^9, 3.7694990007442226`*^9}, {3.769500965004387*^9, 
+   3.7695010629564*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"2f3a698e-dbbf-4f3f-b665-aa11619b430f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Jacobian", " ", "function"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"If", "[", 
+    RowBox[{"GenJac", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"SMSInitialize", "[", 
+       RowBox[{"\"\<jacobian\>\"", ",", 
+        RowBox[{"\"\<Language\>\"", "\[Rule]", "\"\<Fortran90\>\""}], ",", 
+        RowBox[{"\"\<VectorLength\>\"", "\[Rule]", "50000"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"SMSModule", "[", 
+       RowBox[{"\"\<jacobian\>\"", ",", 
+        RowBox[{"Real", "[", 
+         RowBox[{
+          RowBox[{"x$$", "[", "nvar", "]"}], ",", 
+          RowBox[{"mpar$$", "[", "NumParam", "]"}], ",", 
+          RowBox[{"statev$$", "[", "nstatv", "]"}], ",", 
+          RowBox[{"Fnew$$", "[", "9", "]"}], ",", 
+          RowBox[{"dRdX$$", "[", 
+           RowBox[{"nvar", ",", "nvar"}], "]"}]}], "]"}], ",", 
+        RowBox[{"\"\<Output\>\"", "\[Rule]", 
+         RowBox[{"{", "dRdX$$", "}"}]}], ",", 
+        RowBox[{"\"\<Input\>\"", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"x$$", ",", "mpar$$", ",", "statev$$", ",", "Fnew$$"}], 
+          "}"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"RunSubModules", "[", 
+       RowBox[{"{", "\"\<ResidualSetup\>\"", "}"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"dRdX", "\[DoubleRightTee]", 
+       RowBox[{"SMSD", "[", 
+        RowBox[{"R", ",", "X"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Export", " ", "variables"}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"SMSExport", "[", 
+       RowBox[{"dRdX", ",", "dRdX$$"}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"SMSWrite", "[", "]"}]}]}], "\[IndentingNewLine]", "]"}], 
+   ";"}]}]], "Input",
+ CellChangeTimes->{{3.7585513495310287`*^9, 3.7585513615523605`*^9}, {
+   3.7585513928046417`*^9, 3.75855140797931*^9}, {3.7585516243687825`*^9, 
+   3.758551635832694*^9}, {3.758552574168006*^9, 3.7585526139993954`*^9}, {
+   3.7585530083540983`*^9, 3.758553016689972*^9}, {3.7585532842104745`*^9, 
+   3.7585532883409543`*^9}, 3.7585586319513655`*^9, {3.758559176442771*^9, 
+   3.758559178487689*^9}, {3.7586040921440783`*^9, 3.7586040923900657`*^9}, {
+   3.7586046006160154`*^9, 3.758604600896036*^9}, {3.7586046751145554`*^9, 
+   3.7586046775786285`*^9}, {3.758604712265463*^9, 3.7586047551793814`*^9}, {
+   3.7586234082074847`*^9, 3.7586234087266035`*^9}, 3.758632875933716*^9, {
+   3.75863309611294*^9, 3.7586330965359063`*^9}, 3.7586332223948607`*^9, {
+   3.7587138383449554`*^9, 3.758713841102271*^9}, 3.75941221659039*^9, 
+   3.7594130077037168`*^9, {3.7638209361112137`*^9, 3.7638209411429567`*^9}, {
+   3.7638745621951623`*^9, 3.763874566984271*^9}, {3.763876629774082*^9, 
+   3.7638766320140867`*^9}, {3.7649988110617666`*^9, 
+   3.7649988139207773`*^9}, {3.764999475035322*^9, 3.7649994775533457`*^9}, {
+   3.765024611428389*^9, 3.7650246267408934`*^9}, {3.7665647305153017`*^9, 
+   3.766564732907333*^9}, {3.7667432862296443`*^9, 3.7667432896356535`*^9}, {
+   3.7667475345977297`*^9, 3.766747537191188*^9}, {3.766807588260987*^9, 
+   3.766807591428004*^9}, {3.7668099615504694`*^9, 3.766809963564516*^9}, {
+   3.7668130147584114`*^9, 3.7668130382922063`*^9}, {3.766813089004815*^9, 
+   3.766813089557806*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"fdd32673-0274-44af-8b3d-d7adf4eab851"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Plastic", " ", "output", " ", "function"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"If", "[", 
+    RowBox[{"GenOut", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"SMSInitialize", "[", 
+       RowBox[{"\"\<plastic_output\>\"", ",", 
+        RowBox[{"\"\<Language\>\"", "\[Rule]", "\"\<Fortran90\>\""}], ",", 
+        RowBox[{"\"\<VectorLength\>\"", "\[Rule]", "50000"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"SMSModule", "[", 
+       RowBox[{"\"\<plastic_output\>\"", ",", 
+        RowBox[{"Real", "[", 
+         RowBox[{
+          RowBox[{"x$$", "[", "nvar", "]"}], ",", 
+          RowBox[{"mpar$$", "[", "NumParam", "]"}], ",", 
+          RowBox[{"statev$$", "[", "nstatv", "]"}], ",", 
+          RowBox[{"Fnew$$", "[", "9", "]"}], ",", 
+          RowBox[{"Jinv$$", "[", 
+           RowBox[{"nvar", ",", "nvar"}], "]"}], ",", 
+          RowBox[{"sigma$$", "[", "6", "]"}], ",", 
+          RowBox[{"ddsdde$$", "[", 
+           RowBox[{"6", ",", "6"}], "]"}], ",", 
+          RowBox[{"statevNew$$", "[", "nstatv", "]"}], ",", "dwp$$"}], "]"}], 
+        ",", 
+        RowBox[{"\"\<Output\>\"", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+          "sigma$$", ",", "ddsdde$$", ",", "statevNew$$", ",", "dwp$$"}], 
+          "}"}]}], ",", 
+        RowBox[{"\"\<Input\>\"", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+          "x$$", ",", "mpar$$", ",", "statev$$", ",", "Fnew$$", ",", 
+           "Jinv$$"}], "}"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"RunSubModules", "[", 
+       RowBox[{"{", "\"\<ResidualSetup\>\"", "}"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"GetJinv", "[", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Tau", "\[DoubleRightTee]", 
+       RowBox[{"v9dv9", "[", 
+        RowBox[{"Fe", ",", 
+         RowBox[{"v9dv9", "[", 
+          RowBox[{"S9", ",", 
+           RowBox[{"trans9", "[", "Fe", "]"}]}], "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"sigma", "\[DoubleRightTee]", 
+       RowBox[{"v92v6ABAS", "[", 
+        RowBox[{"Tau", "/", 
+         RowBox[{"det9", "[", "F9", "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"dtdF", "\[DoubleRightTee]", 
+       RowBox[{"SMSD", "[", 
+        RowBox[{"Tau", ",", "F9"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"dtdX", "\[DoubleRightTee]", 
+       RowBox[{"SMSD", "[", 
+        RowBox[{"Tau", ",", "X"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"dRdF", "\[DoubleRightTee]", 
+       RowBox[{"SMSD", "[", 
+        RowBox[{"R", ",", "F9"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"DtDF", "\[DoubleRightTee]", 
+       RowBox[{"dtdF", "+", 
+        RowBox[{"dco", "[", 
+         RowBox[{"dtdX", ",", 
+          RowBox[{"-", 
+           RowBox[{"dco", "[", 
+            RowBox[{"Jinv", ",", "dRdF"}], "]"}]}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"ddsdde", "\[DoubleRightTee]", 
+       RowBox[{"dtaudFtoddsdde", "[", 
+        RowBox[{"DtDF", ",", "F9"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"statevNew", "\[DoubleRightTee]", 
+       RowBox[{"SetStatv", "[", 
+        RowBox[{"Fp", ",", "HatLambda", ",", "FkAll", ",", "CD", ",", "CL"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Plastic", " ", "work"}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"dwp", "\[DoubleRightTee]", 
+       RowBox[{"dlam", " ", 
+        RowBox[{"dco", "[", 
+         RowBox[{"Me", ",", "nu"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", 
+       RowBox[{"Export", " ", "variables"}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"SMSExport", "[", 
+       RowBox[{"dwp", ",", "dwp$$"}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"SMSExport", "[", 
+       RowBox[{"sigma", ",", "sigma$$"}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"SMSExport", "[", 
+       RowBox[{"ddsdde", ",", "ddsdde$$"}], "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"SMSExport", "[", 
+       RowBox[{"statevNew", ",", "statevNew$$"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"SMSWrite", "[", "]"}]}]}], "\[IndentingNewLine]", "]"}], 
+   ";"}]}]], "Input",
+ CellChangeTimes->{{3.75855331057101*^9, 3.7585533613246517`*^9}, {
+   3.758559183289998*^9, 3.7585591853470097`*^9}, {3.7586040999360704`*^9, 
+   3.758604100150103*^9}, {3.758604604383135*^9, 3.7586046046801*^9}, {
+   3.758609948875063*^9, 3.75861004364991*^9}, {3.7586101379306946`*^9, 
+   3.758610184691358*^9}, 3.758610223676585*^9, {3.7586102881728835`*^9, 
+   3.7586103664464607`*^9}, {3.7586106685378065`*^9, 
+   3.7586108045313478`*^9}, {3.758610883804785*^9, 3.758610994351118*^9}, {
+   3.7586110424963007`*^9, 3.7586111084089813`*^9}, {3.758611139746161*^9, 
+   3.7586112239805665`*^9}, 3.758611449234825*^9, {3.7586122269734735`*^9, 
+   3.758612259676552*^9}, {3.7586123355771437`*^9, 3.7586123359431562`*^9}, {
+   3.758613518297455*^9, 3.7586135193924503`*^9}, {3.7586234115916224`*^9, 
+   3.758623413806836*^9}, {3.758633041225586*^9, 3.7586330601854305`*^9}, {
+   3.7586330907299585`*^9, 3.7586330914479465`*^9}, {3.7586334672915964`*^9, 
+   3.758633514131815*^9}, {3.7587138523434*^9, 3.7587138630944595`*^9}, 
+   3.759412217813433*^9, 3.7594130120705605`*^9, {3.7638210299697013`*^9, 
+   3.7638210734250193`*^9}, {3.763828652365494*^9, 3.763828657633422*^9}, {
+   3.763828812507311*^9, 3.7638288134902987`*^9}, {3.763876662135079*^9, 
+   3.7638766747211137`*^9}, {3.7638811845108137`*^9, 3.763881187065507*^9}, {
+   3.7649988210598097`*^9, 3.7649988251118298`*^9}, {3.7649994808153486`*^9, 
+   3.7649994833363857`*^9}, {3.7650246164902563`*^9, 
+   3.7650246217790565`*^9}, {3.7665647347482996`*^9, 3.76656473847433*^9}, {
+   3.76674329151764*^9, 3.7667432941066384`*^9}, {3.7667451965050406`*^9, 
+   3.7667452281840844`*^9}, {3.7667457090308013`*^9, 
+   3.7667457483458138`*^9}, {3.7667457919628115`*^9, 3.766745810411852*^9}, {
+   3.7668074561537614`*^9, 3.7668075592989473`*^9}, {3.7668076430231123`*^9, 
+   3.766807646470131*^9}, {3.766809968628806*^9, 3.7668099763707867`*^9}, {
+   3.7668130431332636`*^9, 3.766813058108779*^9}, {3.784523413779733*^9, 
+   3.784523431248393*^9}, {3.7845240232586727`*^9, 
+   3.784524035262269*^9}},ExpressionUUID->"a47c7b38-4897-4d1e-bc77-\
+fb06875c02e9"]
+},
+WindowSize->{886, 896},
+WindowMargins->{{502, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 2789, 65, 200, "Input",ExpressionUUID->"c8cbaeb8-32a0-4364-ba23-e857a719d260"],
+Cell[3350, 87, 3364, 64, 257, "Input",ExpressionUUID->"41c7e353-72e5-4e39-948e-e1cee7e84795"],
+Cell[6717, 153, 7177, 150, 504, "Input",ExpressionUUID->"2f3a698e-dbbf-4f3f-b665-aa11619b430f"],
+Cell[13897, 305, 3383, 62, 219, "Input",ExpressionUUID->"fdd32673-0274-44af-8b3d-d7adf4eab851"],
+Cell[17283, 369, 6364, 127, 485, "Input",ExpressionUUID->"a47c7b38-4897-4d1e-bc77-fb06875c02e9"]
+}
+]
+*)
+
