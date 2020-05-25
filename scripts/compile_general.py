@@ -66,9 +66,12 @@ def build_model_cat(model_cat, line_numbers=None):
     build_dir = 'build/'
 
     if os.path.exists(build_dir):
-        shutil.rmtree(build_dir)
+        if input('Do you want to clean build? (yes/no)= ') == 'yes':
+            shutil.rmtree(build_dir)
+            os.mkdir(build_dir)
+    else:
+        os.mkdir(build_dir)
 
-    os.mkdir(build_dir)
     os.chdir(build_dir)
 
     os.system(cmake_setup)
