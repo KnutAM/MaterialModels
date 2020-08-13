@@ -30,7 +30,7 @@ if not output_dir.exists():
 
 def main(argv):
     # Input argument 1
-    #   Which model category to compile (default is all)
+    #   Which model category to compile (default is all_model_categories)
     # Input arguments 2-
     #   Sequence of indicies (row nr - 1) of models to compile, see cmake_compile_models.txt or abaqus_compile_files.txt
     #   if the former doesn't exist. The default is to compile all models in category

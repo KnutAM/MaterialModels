@@ -70,7 +70,7 @@ target_sources(CrystalPlasticity PRIVATE
 	"crystal_orientations_mod.f90"
     "${orientation}.f90"
 	"umat.f90"
-	"${umat_utils_path}/Tensors_module.f90"
+	"${umat_utils_path}/tensors_module.f90"
     "${umat_utils_path}/smsutility.f90"
     "${umat_utils_path}/SolveMatrixEquation.f90"
     "umat_module.f90"
