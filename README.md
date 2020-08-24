@@ -1,11 +1,11 @@
 # MaterialModels
 This repository contains user material models for Abaqus (UMAT) written by Knut Andreas Meyer. 
-It with different model categories, located in the "models" folder. Each category contains (at least) three items:
+It has different model categories, located in the "models" folder. Each category contains (at least) three items:
 - src: A folder containing the source code necessary to build the model
 - doc: A folder containing documentation for the models
 - ref.bib: Latex bibliography file with reference(s) to the appropriate paper(s)
 
-If you publish results based on any of these models, please cite the relevant paper. If you are presenting results obtained with any of these models, please mention this repository. 
+If you publish results based on any of these models, please cite the relevant paper. If you are presenting results obtained with any of these models, please also mention this repository. 
 
 Additionally, the "models" folder contains a umat_utils folder, with general-purpose codes used by several models. 
 
@@ -15,6 +15,7 @@ The scripts folder contains two scripts, one for building models for Abaqus (UMA
 * Input 2-: Which model number(s) to build within the given category (see cmake_compile_models.txt or abaqus_compile_files.txt) in the corresponding src folder
 
 The built models for Abaqus and the general case are put in folders compiled_abaqus and compiled respectively. 
+Note: To use the compiled routines (.so/.dll) for Abaqus, they must be renamed into standardU.dll or standardU.so. Alternatively, the .o or .obj files can be used. 
 
 ## Overview of models
 First, the models related to specific publications are listed. Further descriptions are given later for the specific model. 
