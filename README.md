@@ -1,21 +1,22 @@
 # MaterialModels
 This repository contains user material models for Abaqus (UMAT) written by Knut Andreas Meyer. 
-It has different model categories, located in the "models" folder. Each category contains (at least) three items:
-- src: A folder containing the source code necessary to build the model
-- doc: A folder containing documentation for the models
-- ref.bib: Latex bibliography file with reference(s) to the appropriate paper(s)
+It has different model categories, located in the `models` folder. Each category contains (at least) three items:
+
+- `src`: A folder containing the source code necessary to build the model
+- `doc`: A folder containing documentation for the models
+- `ref.bib`: Latex bibliography file with reference(s) to the appropriate paper(s)
 
 If you publish results based on any of these models, please cite the relevant paper. If you are presenting results obtained with any of these models, please also mention this repository. 
 
-Additionally, the "models" folder contains a umat_utils folder, with general-purpose codes used by several models. 
+Additionally, the `models` folder contains a `umat_utils` folder, with general-purpose codes used by several models. 
 
 ## Compiling the models
 The scripts folder contains two scripts, one for building models for Abaqus (UMAT) and one for building a general shared library with the umat interface. These scripts take the following input:
-* Input 1: Which model category to build (see folder names in the "models" folder)
-* Input 2-: Which model number(s) to build within the given category (see cmake_compile_models.txt or abaqus_compile_files.txt) in the corresponding src folder
+* Input 1: Which model category to build (see folder names in the `models` folder)
+* Input 2-: Which model number(s) to build within the given category (see `cmake_compile_models.txt` or `abaqus_compile_files.txt`) in the corresponding `src` folder
 
-The built models for Abaqus and the general case are put in folders compiled_abaqus and compiled respectively. 
-Note: To use the compiled routines (.so/.dll) for Abaqus, they must be renamed into standardU.dll or standardU.so. Alternatively, the .o or .obj files can be used. 
+The built models for Abaqus and the general case are put in folders `compiled_abaqus` and `compiled` respectively. 
+Note: To use the compiled routines (`.so`/`.dll`) for Abaqus, they must be renamed into `standardU.dll` or `libstandardU.so`. In the `abaqus_v6.env` file the variable `usub_lib_dir` must be set to the folder containing the shared library. Alternatively, the `.o` or `.obj` files can be used. Additionally, a folder containing all sources required for the particular model is created in the `compiled_abaqus` folder, where the file `umat.for`/`umat.f` file is the main file. This setup can be used if more user subroutines should be linked with abaqus, and the line `include umat.for`/`include umat.f` can be used to also compile the user material model.
 
 ## Overview of models
 First, the models related to specific publications are listed. Further descriptions are given later for the specific model. 
@@ -43,6 +44,6 @@ Some of the included code is generated using AceGen, and this should be referenc
 
 ## References
 * H. Burlet and G. Cailletaud (1986) "Numerical techniques for cyclic plasticity at variable temperature," Eng. Comput., vol. 3, no. 2, pp. 143–153
-* K. A. Meyer, M. Ekh, and J. Ahlström (2018) "Modeling of kinematic hardening at large biaxial deformations in pearlitic rail steel," Int. J. Solids Struct., vol. 130–131, pp. 122–132.
+* K. A. Meyer, M. Ekh, and J. Ahlström (2018) "Modeling of kinematic hardening at large biaxial deformations in pearlitic rail steel," Int. J. Solids Struct., vol. 130–131, pp. 122–132. https://doi.org/10.1016/j.ijsolstr.2017.10.007
 * K. A. Meyer (2020) "Evaluation of Material Models Describing the Evolution of Plastic Anisotropy in Pearlitic Steel." Int. J. Solids Struct. https://doi.org/10.1016/j.ijsolstr.2020.04.037. 
 * Korelc J. (2002) "Multi-language and Multi-environment Generation of Nonlinear Finite Element Codes", Engineering with Computers, vol. 18, n. 4, str. 312-327
