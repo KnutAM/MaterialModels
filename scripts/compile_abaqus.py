@@ -72,7 +72,7 @@ def build_model(model_cat, model_info):
 
     dutil._path_created = {}  # Need to clear cache after deleting the old tree using shutil.rmtree
     dutil.copy_tree('../models/umat_utils', str(umat.parent))
-
+    
     os.chdir(umat.parent)
     os.system('abaqus make library=' + str(umat.name))
 
@@ -89,11 +89,17 @@ def build_model(model_cat, model_info):
         os.rename(umat.parent / 'umat-std.obj', compiled_dir / (model_name + '.obj'))
     else:
         delete_files([model_name+'.so', model_name+'.o'], '../compiled_abaqus/')
-        os.rename(umat.parent / 'standardU.so', compiled_dir / (model_name + '.so'))
+        os.rename(umat.parent / 'libstandardU.so', compiled_dir / (model_name + '.so'))
         os.rename(umat.parent / 'umat-std.o', compiled_dir / (model_name + '.o'))
-
-    shutil.rmtree(umat.parent)
-
+    
+    # Move umat sources to a folder such that umat can be compiled together with other user 
+    # subroutines if required
+    src_dir = compiled_dir / model_name
+    if src_dir.exists():
+        shutil.rmtree(src_dir)
+        
+    os.rename(umat.parent, src_dir)
+    
 
 def create_umat():  # Umat actually not created, but path object to it is.
     dir = pl.Path('tmp_build_dir')
