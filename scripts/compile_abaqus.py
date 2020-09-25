@@ -59,7 +59,10 @@ def build_model(model_cat, model_info):
     file_contents = ''
     for model_file in model_files:
         file = pl.Path('../models/' + model_cat) / 'src' / model_file.strip('"')
-        file_contents = file_contents + file.read_text() + '\n'
+        try:
+            file_contents = file_contents + file.read_text() + '\n'
+        except UnicodeDecodeError:
+            file_contents = file_contents + file.read_text(encoding='latin1') + '\n'
 
     # dec_freeform (if written, is not needed within the file). Remove it, and add it in the beginning of the whole file
     dec_freeform = '!DEC$ FREEFORM'
