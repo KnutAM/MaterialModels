@@ -11,6 +11,7 @@ If you publish results based on any of these models, please cite the relevant pa
 Additionally, the `models` folder contains a `umat_utils` folder, with general-purpose codes used by several models. 
 
 ## Compiling the models
+(Please see `AbaqusSetup.md` for some hints on how to setup your environment for Abaqus using user subroutines)
 The scripts folder contains two scripts, one for building models for Abaqus (UMAT) and one for building a general shared library with the umat interface. These scripts take the following input:
 * Input 1: Which model category to build (see folder names in the `models` folder)
 * Input 2-: Which model number(s) to build within the given category (see `cmake_compile_models.txt` or `abaqus_compile_files.txt`) in the corresponding `src` folder
