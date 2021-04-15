@@ -1,0 +1,22 @@
+AceGenModule disthard_ISO2_BC2
+nstatv:                 49
+ElasticType:            NeoHookean
+IsoHardType:            TwoIsoHard
+KinHardType:            BC_hat
+DistHardType:           CSquare
+
+Material parameters (14):
+G (Shear modulus)
+K (Bulk modulus)
+Y0 (Initial yield limit)
+k1 (Isotropic hardening constant 1)
+Rinf1 (Isotropic saturation 1)
+k2 (Isotropic hardening constant 2)
+Rinf2 (Isotropic saturation 2)
+delta (amount of  AF vs BC)
+Hkin1
+Binf1
+Hkin2
+Binf2
+cc (Evolution parameter for Cc)
+bc (Amount of cross hardening)

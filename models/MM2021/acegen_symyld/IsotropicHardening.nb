@@ -1,0 +1,216 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8697,        208]
+NotebookOptionsPosition[      8400,        195]
+NotebookOutlinePosition[      8743,        210]
+CellTagsIndexPosition[      8700,        207]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ISOTROPIC", " ", "HARDENING", " ", "LAW"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+     "Various", " ", "isotropic", " ", "hardening", " ", "laws", " ", "can", 
+      " ", "be", " ", "setup", " ", "based", " ", "on", " ", "the", " ", 
+      "variable", " ", 
+      RowBox[{"IsoHardType", ".", " ", "The"}], " ", "following", " ", 
+      "quantities", " ", "are", " ", "defined"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"-", " ", 
+      RowBox[{"IsoHardParam", ":", " ", 
+       RowBox[{
+       "Array", " ", "of", " ", "strings", " ", "describing", " ", "the", " ",
+         "isotropic", " ", "hardening", " ", "parameters"}]}]}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"-", " ", 
+     RowBox[{"NumIsoHardParam", ":", " ", 
+      RowBox[{
+      "Number", " ", "of", " ", "isotropic", " ", "hardening", " ", 
+       "parameters"}]}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"-", " ", 
+      RowBox[{"YieldLimit", "[", 
+       RowBox[{"lambda_", ",", "p_"}], "]"}]}], ":", " ", 
+     RowBox[{
+     "Isotropic", " ", "yield", " ", "limit", " ", "as", " ", "function", " ",
+       "of", " ", "lambda", " ", 
+      RowBox[{"(", "total", ")"}], "\[IndentingNewLine]", "NOTE"}], ":", " ", 
+     RowBox[{
+     "First", " ", "isotropic", " ", "parameter", " ", "is", " ", "always", 
+      " ", "the", " ", "initial", " ", "yield", " ", 
+      RowBox[{"limit", "!"}]}]}]}], "\[IndentingNewLine]", "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Main", " ", "part", " ", "in", " ", "which", " ", "the", " ", "isotropic",
+     " ", "hardening", " ", "law", " ", "is", " ", "defined"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Switch", "[", 
+    RowBox[{
+    "IsoHardType", ",", "\[IndentingNewLine]", "\"\<Standard\>\"", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IsoHardParam", "=", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Y0 (Initial yield limit)\>\"", ",", 
+         "\"\<Hiso (Isotropic hardening modulus)\>\"", ",", 
+         "\"\<Rinf (Isotropic saturation)\>\""}], "}"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"NumIsoHardParam", "=", 
+       RowBox[{"Length", "[", "IsoHardParam", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"IsoHardEvEq", "[", 
+        RowBox[{"Kappa_", ",", "p_"}], "]"}], ":=", 
+       RowBox[{
+        RowBox[{"p", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], 
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          RowBox[{"Kappa", "/", 
+           RowBox[{"p", "[", 
+            RowBox[{"[", "3", "]"}], "]"}]}]}], ")"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"YieldLimit", "[", 
+        RowBox[{"lambda_", ",", "p_"}], "]"}], ":=", 
+       RowBox[{
+        RowBox[{"p", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "+", 
+        RowBox[{
+         RowBox[{"p", "[", 
+          RowBox[{"[", "3", "]"}], "]"}], "*", 
+         RowBox[{"(", 
+          RowBox[{"1", "-", 
+           RowBox[{"Exp", "[", 
+            RowBox[{
+             RowBox[{"-", "lambda"}], " ", 
+             RowBox[{
+              RowBox[{"p", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "/", 
+              RowBox[{"p", "[", 
+               RowBox[{"[", "3", "]"}], "]"}]}]}], "]"}]}], ")"}]}]}]}]}], 
+     ",", "\[IndentingNewLine]", "\"\<TwoIsoHard\>\"", ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IsoHardParam", "=", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Y0 (Initial yield limit)\>\"", ",", 
+         "\"\<k1 (Isotropic hardening constant 1)\>\"", ",", 
+         "\"\<Rinf1 (Isotropic saturation 1)\>\"", ",", 
+         "\"\<k2 (Isotropic hardening constant 2)\>\"", ",", 
+         "\"\<Rinf2 (Isotropic saturation 2)\>\""}], "}"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"NumIsoHardParam", "=", 
+       RowBox[{"Length", "[", "IsoHardParam", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"YieldLimit", "[", 
+        RowBox[{"lambda_", ",", "p_"}], "]"}], ":=", 
+       RowBox[{
+        RowBox[{"p", "[", 
+         RowBox[{"[", "1", "]"}], "]"}], "+", 
+        RowBox[{
+         RowBox[{"p", "[", 
+          RowBox[{"[", "3", "]"}], "]"}], "*", 
+         RowBox[{"(", 
+          RowBox[{"1", "-", 
+           RowBox[{"Exp", "[", 
+            RowBox[{
+             RowBox[{"-", "lambda"}], " ", 
+             RowBox[{"p", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "]"}]}], ")"}]}], "+", 
+        RowBox[{
+         RowBox[{"p", "[", 
+          RowBox[{"[", "5", "]"}], "]"}], "*", 
+         RowBox[{"(", 
+          RowBox[{"1", "-", 
+           RowBox[{"Exp", "[", 
+            RowBox[{
+             RowBox[{"-", "lambda"}], " ", 
+             RowBox[{"p", "[", 
+              RowBox[{"[", "4", "]"}], "]"}]}], "]"}]}], ")"}]}]}]}]}], ",", 
+     "\[IndentingNewLine]", "_", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IsoHardParam", "=", 
+       RowBox[{"{", "\"\<Y0\>\"", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"NumIsoHardParam", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"YieldLimit", "[", 
+        RowBox[{"lambda_", ",", "p_"}], "]"}], ":=", 
+       RowBox[{"p", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], ";"}]}], "\[IndentingNewLine]", 
+    "]"}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.758348294378935*^9, 3.7583483181797657`*^9}, {
+   3.7583485399875298`*^9, 3.7583486559379992`*^9}, {3.7583492569291444`*^9, 
+   3.75834945730588*^9}, {3.7583495213879623`*^9, 3.7583499002548666`*^9}, {
+   3.7583499683445516`*^9, 3.7583501793736553`*^9}, {3.7583502569358215`*^9, 
+   3.758350300130369*^9}, {3.758350360131524*^9, 3.758350421532242*^9}, {
+   3.7583506694977365`*^9, 3.7583508638472943`*^9}, {3.7583509044809713`*^9, 
+   3.758350914321203*^9}, {3.758350989650051*^9, 3.7583509926261034`*^9}, {
+   3.758369762990018*^9, 3.7583698168492413`*^9}, {3.758371650763318*^9, 
+   3.7583716833080673`*^9}, {3.758371714365015*^9, 3.758371724812996*^9}, 
+   3.7583737978205395`*^9, {3.758373898932419*^9, 3.7583739369684153`*^9}, 
+   3.7583740047223454`*^9, {3.7583740402023273`*^9, 3.7583741157083015`*^9}, {
+   3.7583741727752247`*^9, 3.7583741942302055`*^9}, {3.7583742996331477`*^9, 
+   3.758374329665115*^9}, {3.7583743857870827`*^9, 3.7583745509100337`*^9}, {
+   3.7583746001529136`*^9, 3.7583747148507147`*^9}, {3.7583749039117985`*^9, 
+   3.7583752747520933`*^9}, {3.758375467596648*^9, 3.7583754868691998`*^9}, {
+   3.7583759827368956`*^9, 3.7583759829768953`*^9}, {3.7585483651024475`*^9, 
+   3.758548690830164*^9}, {3.7585502901556582`*^9, 3.7585503479143577`*^9}, {
+   3.758550656734474*^9, 3.7585506681217527`*^9}, {3.7586127156201324`*^9, 
+   3.758612763492771*^9}, {3.758708124404967*^9, 3.758708152581691*^9}, {
+   3.758708188413247*^9, 3.758708235814478*^9}, {3.758708268832507*^9, 
+   3.7587082731276255`*^9}, {3.758708310487931*^9, 3.758708338088437*^9}, {
+   3.75870839194678*^9, 3.758708399434757*^9}, {3.7594100231838226`*^9, 
+   3.7594101004513025`*^9}, {3.759410149411075*^9, 3.7594105188537683`*^9}, {
+   3.759410578781979*^9, 3.759410608839755*^9}, 3.759411309970255*^9, {
+   3.7594628988052483`*^9, 3.759463001226365*^9}, {3.7594630680676317`*^9, 
+   3.759463085091935*^9}, {3.763806142952542*^9, 3.7638061553994017`*^9}, {
+   3.763806214052031*^9, 3.7638062259579134`*^9}, {3.763806303342844*^9, 
+   3.763806305711135*^9}, {3.763806467203342*^9, 3.7638064818507414`*^9}, {
+   3.763806512636074*^9, 3.7638066212502804`*^9}, {3.766383983300115*^9, 
+   3.7663840552298145`*^9}, 3.7668041531994886`*^9, {3.7825529028038692`*^9, 
+   3.782553118464593*^9}, {3.7825531529089327`*^9, 
+   3.782553166929936*^9}},ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-\
+9feb42e240c5"]
+},
+WindowSize->{775, 773},
+WindowMargins->{{137, Automatic}, {-7, Automatic}},
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 7838, 173, 561, "Input",ExpressionUUID->"5ac1b677-3a0c-4766-bb8d-9feb42e240c5"]
+}
+]
+*)
+
