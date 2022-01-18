@@ -1,3 +1,5 @@
+*For instructions on how to setup Abaqus with subroutines, see [here](/AbaqusSetup.md)*
+
 # MaterialModels
 This repository contains user material models for Abaqus (UMAT) written by Knut Andreas Meyer. 
 It has different model categories, located in the `models` folder. Each category contains (at least) three items:
