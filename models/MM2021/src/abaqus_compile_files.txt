@@ -1,2 +1,2 @@
-disthard_ISO2_BC2,"../../umat_utils/SolveMatrixEquation.f90","../../umat_utils/smsutility.f90","disthard_ISO2_BC2.f90","umat_module.f90","umat.for"
-rmodel_ISO2_BC2,"../../umat_utils/SolveMatrixEquation.f90","../../umat_utils/smsutility.f90","rmodel_ISO2_BC2.f90","umat_module.f90","umat.for"
+disthard_ISO2_BC2,"../../umat_utils/SolveMatrixEquation.f90","../../umat_utils/smsutility.f90","disthard_ISO2_BC2.f90","umat_module.f90","umat.f90"
+rmodel_ISO2_BC2,"../../umat_utils/SolveMatrixEquation.f90","../../umat_utils/smsutility.f90","rmodel_ISO2_BC2.f90","umat_module.f90","umat.f90"
