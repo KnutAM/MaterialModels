@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/191778601.svg)](https://zenodo.org/badge/latestdoi/191778601)
+
 *For instructions on how to setup Abaqus with subroutines, see [here](/AbaqusSetup.md)*
 
 # MaterialModels
