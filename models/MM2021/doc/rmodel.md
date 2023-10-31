@@ -32,6 +32,6 @@ This model is generated in ``acegen_rmodel``. It can have 2 back-stresses and is
 
 20-28) Fk2-I2 (Kinematic deformation gradient nr2 (minus 2nd order identity))
 
-29-49) Cc (4th order cross hardening tensor. It is major and minor symmetric, and thus only 21 components [Note, also deviatoric and could theoretically be saved with only 15 components])
+29-49) Cc-I4sym (4th order cross hardening tensor. It is major and minor symmetric, and thus only 21 components are stored. This converted by a custom ordering, see V21toV9x9FULLSYM in [umat_utils](../../umat_utils/AceGenUtils/MathematicaTensorsToolbox.nb)
 
 50-58) Fr-I2 (r deformation gradient minus 2nd order identity)
